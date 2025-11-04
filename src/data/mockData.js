@@ -132,3 +132,62 @@ export const productCategories = [
   { value: 'Kitap', label: 'Kitap' },
   { value: 'Giyim', label: 'Giyim' }
 ];
+
+// customerStats objesi 
+
+export const customerStats = {
+  total: 1250,
+  newThisMonth: 82,
+  active: 970,
+  inactive: 280
+};
+
+// allCustomers dizisi 
+
+export const allCustomers = [
+  { id: 'CUST-001', name: 'Ahmet Yılmaz', email: 'ahmet@email.com', phone: '0555 123 4567', totalSpent: 15400, orderCount: 5, status: 'active', avatar: 'https://i.pravatar.cc/150?img=12' },
+  { id: 'CUST-002', name: 'Ayşe Demir', email: 'ayse@email.com', phone: '0555 234 5678', totalSpent: 8200, orderCount: 3, status: 'active', avatar: 'https://i.pravatar.cc/150?img=32' },
+  { id: 'CUST-003', name: 'Mehmet Kaya', email: 'mehmet@email.com', phone: '0555 345 6789', totalSpent: 23000, orderCount: 8, status: 'active', avatar: 'https://i.pravatar.cc/150?img=17' },
+  { id: 'CUST-004', name: 'Fatma Şahin', email: 'fatma@email.com', phone: '0555 456 7890', totalSpent: 5100, orderCount: 2, status: 'inactive', avatar: 'https://i.pravatar.cc/150?img=19' },
+  { id: 'CUST-005', name: 'Ali Öztürk', email: 'ali@email.com', phone: '0555 567 8901', totalSpent: 3000, orderCount: 1, status: 'banned', avatar: 'https://i.pravatar.cc/150?img=56' }
+];
+
+// analyticsRevenueData 
+export const analyticsRevenueData = [
+  { date: '01 Kas', revenue: 4500 },
+  { date: '02 Kas', revenue: 4800 },
+  { date: '03 Kas', revenue: 5100 },
+  { date: '04 Kas', revenue: 4900 },
+  { date: '05 Kas', revenue: 5300 },
+  { date: '06 Kas', revenue: 5800 },
+  { date: '07 Kas', revenue: 6200 },
+  { date: '08 Kas', revenue: 5900 },
+  { date: '09 Kas', revenue: 6400 },
+  { date: '10 Kas', revenue: 7100 },
+  { date: '11 Kas', revenue: 6800 },
+  { date: '12 Kas', revenue: 7500 },
+];
+
+
+// productPerformanceData 
+export const productPerformanceData = [
+  { id: 'p1', name: 'iPhone 15 Pro', image: '📱', views: 25000, unitsSold: 124, conversionRate: 4.96, revenue: 384400 },
+  { id: 'p2', name: 'Samsung Galaxy S24', image: '📱', views: 18000, unitsSold: 98, conversionRate: 5.44, revenue: 274400 },
+  { id: 'p3', name: 'AirPods Pro', image: '🎧', views: 35000, unitsSold: 85, conversionRate: 2.43, revenue: 63750 },
+  { id: 'p4', name: 'MacBook Air M3', image: '💻', views: 12000, unitsSold: 52, conversionRate: 4.33, revenue: 234000 },
+  { id: 'p8', name: 'Adidas Spor Ayakkabı', image: '👟', views: 45000, unitsSold: 89, conversionRate: 1.98, revenue: 222500 },
+  { id: 'p15', name: 'Sapiens Kitabı', image: '📚', views: 60000, unitsSold: 234, conversionRate: 0.39, revenue: 65520 },
+];
+
+// customerInsightsData 
+export const customerInsightsData = {
+  metrics: {
+    clv: 1250, // Müşteri Yaşam Boyu Değeri
+    churnRate: 5.2, // Ayrılma Oranı (%)
+    cac: 85, // Müşteri Edinme Maliyeti
+  },
+  newVsReturning: [
+    { name: 'Yeni Müşteri', value: 180, percentage: 22 },
+    { name: 'Mevcut Müşteri', value: 640, percentage: 78 },
+  ]
+};

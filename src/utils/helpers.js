@@ -1,4 +1,5 @@
 // Para formatı - Türk Lirası
+
 export const formatCurrency = (amount) => {
   return new Intl.NumberFormat('tr-TR', {
     style: 'currency',
@@ -9,16 +10,19 @@ export const formatCurrency = (amount) => {
 };
 
 // Sayı formatı - Binlik ayırıcı
+
 export const formatNumber = (number) => {
   return new Intl.NumberFormat('tr-TR').format(number);
 };
 
 // Yüzde formatı
+
 export const formatPercentage = (value) => {
   return `${value > 0 ? '+' : ''}${value}%`;
 };
 
 // Tarih formatı
+
 export const formatDate = (dateString) => {
   const date = new Date(dateString);
   return new Intl.DateTimeFormat('tr-TR', {
@@ -29,6 +33,7 @@ export const formatDate = (dateString) => {
 };
 
 // Durum rengi - Sipariş durumuna göre
+
 export const getStatusColor = (status) => {
   const colors = {
     'Teslim Edildi': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
@@ -40,6 +45,7 @@ export const getStatusColor = (status) => {
 };
 
 // Trend hesaplama (örnek: geçen aya göre artış/azalış)
+
 export const calculateTrend = (current, previous) => {
   if (!previous) return 0;
   const change = ((current - previous) / previous) * 100;

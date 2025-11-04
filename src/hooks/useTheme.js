@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 
 export const useTheme = () => {
   const [theme, setTheme] = useState(() => {
-    // localStorage'dan tema oku yoksa sistem tercihini al
 
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) return savedTheme;
