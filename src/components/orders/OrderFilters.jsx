@@ -60,8 +60,8 @@ const OrderFilters = ({ onSearch, onStatusFilter }) => {
         <input
           type="text"
           placeholder="Sipariş no, müşteri veya ürün ara..."
-          value={searchTerm} // Değer dahili stateden gelir (Controlled component)
-          onChange={(e) => handleSearch(e.target.value)} // Değiştiğinde handlerı çağırır
+          value={searchTerm} 
+          onChange={(e) => handleSearch(e.target.value)} 
           className="w-full pl-10 pr-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
@@ -71,8 +71,8 @@ const OrderFilters = ({ onSearch, onStatusFilter }) => {
       <div className="flex items-center gap-2">
         <Filter className="w-5 h-5 text-gray-400" />
         <select
-          value={selectedStatus} // Değer dahili stateden gelir (Controlled component)
-          onChange={(e) => handleStatusChange(e.target.value)} // Değiştiğinde handlerı çağırır
+          value={selectedStatus} 
+          onChange={(e) => handleStatusChange(e.target.value)} 
           className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           {/* 'statuses' dizisinden <option> elemanları oluşturulur */}

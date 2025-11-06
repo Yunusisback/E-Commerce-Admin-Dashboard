@@ -2,10 +2,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContaine
 import Card from '../common/Card';
 import { formatCurrency } from '../../utils/helpers';
 
-/**
- * Grafiğin üzerine gelindiğinde (hover) görünecek özel tooltip bileşeni.
- * Proje stiline (dark mode dahil) uyması ve para formatlaması için kullanılır.
- */
+
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
@@ -51,7 +48,7 @@ const RevenueChart = ({ data }) => {
             tickFormatter={(value) => `₺${value / 1000}k`} 
           />
           {/* Özel tooltipimizi burada çağırıyoruz */}
-          <Tooltip content={<CustomTooltip />} />
+        <Tooltip content={<CustomTooltip />} cursor={false} />
           <Legend />
           {/* Grafiğin ana çubuk (Bar) bileşeni */}
           <Bar 
@@ -59,6 +56,7 @@ const RevenueChart = ({ data }) => {
             name="Gelir" 
             fill="#3B82F6" 
             radius={[4, 4, 0, 0]} 
+            
           />
         </BarChart>
       </ResponsiveContainer>

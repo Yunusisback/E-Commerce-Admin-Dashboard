@@ -1,6 +1,7 @@
+// src/data/mockData.js (Tam ve Güncel Hali - Fotoğraf URL'leri ile)
+
 export const mockData = {
   // KPI Data
-
   kpis: {
     totalSales: 145890,
     totalOrders: 1247,
@@ -9,7 +10,6 @@ export const mockData = {
   },
 
   // Günlük satış trendi (son 30 gün)
-
   salesTrend: [
     { date: '01 Eki', sales: 4200, orders: 45 },
     { date: '02 Eki', sales: 3800, orders: 38 },
@@ -44,7 +44,6 @@ export const mockData = {
   ],
 
   // Kategori bazlı satışlar
-
   categoryData: [
     { name: 'Elektronik', value: 45000, percentage: 31 },
     { name: 'Giyim', value: 38000, percentage: 26 },
@@ -54,17 +53,15 @@ export const mockData = {
   ],
 
   // En çok satan ürünler
-
   topProducts: [
-    { id: 1, name: 'iPhone 15 Pro', sales: 12400, revenue: 385000, stock: 45 },
-    { id: 2, name: 'Samsung Galaxy S24', sales: 9800, revenue: 294000, stock: 67 },
+    { id: 1, name: 'iPhone 16 Pro', sales: 12400, revenue: 385000, stock: 45 },
+    { id: 2, name: 'Samsung Galaxy S25', sales: 9800, revenue: 294000, stock: 67 },
     { id: 3, name: 'AirPods Pro', sales: 8500, revenue: 212500, stock: 120 },
     { id: 4, name: 'MacBook Air M3', sales: 5200, revenue: 468000, stock: 23 },
     { id: 5, name: 'Apple Watch Series 9', sales: 4800, revenue: 192000, stock: 89 }
   ],
 
   // Son siparişler
-
   recentOrders: [
     { id: '#ORD-2401', customer: 'Ahmet Yılmaz', product: 'iPhone 15 Pro', amount: 31000, status: 'Teslim Edildi', date: '30 Eki 2024' },
     { id: '#ORD-2402', customer: 'Ayşe Demir', product: 'Samsung Galaxy S24', amount: 28000, status: 'Kargoda', date: '30 Eki 2024' },
@@ -77,10 +74,9 @@ export const mockData = {
 };
 
 // Daha fazla sipariş datası
-
 export const allOrders = [
-  { id: '#ORD-2401', customer: 'Ahmet Yılmaz', product: 'iPhone 15 Pro', amount: 31000, status: 'Teslim Edildi', date: '30 Eki 2024', email: 'ahmet@email.com' },
-  { id: '#ORD-2402', customer: 'Ayşe Demir', product: 'Samsung Galaxy S24', amount: 28000, status: 'Kargoda', date: '30 Eki 2024', email: 'ayse@email.com' },
+  { id: '#ORD-2401', customer: 'Ahmet Yılmaz', product: 'iPhone 16 Pro', amount: 31000, status: 'Teslim Edildi', date: '30 Eki 2024', email: 'ahmet@email.com' },
+  { id: '#ORD-2402', customer: 'Ayşe Demir', product: 'Samsung Galaxy S25', amount: 28000, status: 'Kargoda', date: '30 Eki 2024', email: 'ayse@email.com' },
   { id: '#ORD-2403', customer: 'Mehmet Kaya', product: 'AirPods Pro', amount: 7500, status: 'Hazırlanıyor', date: '29 Eki 2024', email: 'mehmet@email.com' },
   { id: '#ORD-2404', customer: 'Fatma Şahin', product: 'MacBook Air M3', amount: 45000, status: 'Teslim Edildi', date: '29 Eki 2024', email: 'fatma@email.com' },
   { id: '#ORD-2405', customer: 'Ali Öztürk', product: 'Apple Watch Series 9', amount: 12000, status: 'Kargoda', date: '28 Eki 2024', email: 'ali@email.com' },
@@ -94,7 +90,6 @@ export const allOrders = [
 ];
 
 // Sipariş istatistikleri
-
 export const orderStats = {
   pending: 15,
   processing: 28,
@@ -103,24 +98,23 @@ export const orderStats = {
   cancelled: 8
 };
 
-// Ürünler datası
-
+// Ürünler datası (image: 'URL'ler ile güncellendi)
 export const allProducts = [
-  { id: 1, name: 'iPhone 15 Pro', category: 'Elektronik', price: 31000, stock: 45, sales: 124, image: '📱', status: 'active' },
-  { id: 2, name: 'Samsung Galaxy S24', category: 'Elektronik', price: 28000, stock: 67, sales: 98, image: '📱', status: 'active' },
-  { id: 3, name: 'AirPods Pro', category: 'Elektronik', price: 7500, stock: 120, sales: 85, image: '🎧', status: 'active' },
-  { id: 4, name: 'MacBook Air M3', category: 'Elektronik', price: 45000, stock: 23, sales: 52, image: '💻', status: 'active' },
-  { id: 5, name: 'Apple Watch Series 9', category: 'Elektronik', price: 12000, stock: 89, sales: 48, image: '⌚', status: 'active' },
-  { id: 6, name: 'iPad Air', category: 'Elektronik', price: 18500, stock: 56, sales: 67, image: '📱', status: 'active' },
-  { id: 7, name: 'Sony WH-1000XM5', category: 'Elektronik', price: 9800, stock: 78, sales: 43, image: '🎧', status: 'active' },
-  { id: 8, name: 'Adidas Spor Ayakkabı', category: 'Spor', price: 2500, stock: 150, sales: 89, image: '👟', status: 'active' },
-  { id: 9, name: 'Nike Koşu Ayakkabısı', category: 'Spor', price: 3200, stock: 120, sales: 76, image: '👟', status: 'active' },
-  { id: 10, name: 'Yoga Matı', category: 'Spor', price: 450, stock: 200, sales: 134, image: '🧘', status: 'active' },
-  { id: 11, name: 'Kahve Makinesi', category: 'Ev & Yaşam', price: 3500, stock: 45, sales: 56, image: '☕', status: 'active' },
-  { id: 12, name: 'Dyson Süpürge', category: 'Ev & Yaşam', price: 15000, stock: 34, sales: 38, image: '🧹', status: 'low-stock' },
-  { id: 13, name: 'Karaca Yemek Takımı', category: 'Ev & Yaşam', price: 2800, stock: 67, sales: 45, image: '🍽️', status: 'active' },
-  { id: 14, name: 'PlayStation 5', category: 'Elektronik', price: 18000, stock: 12, sales: 67, image: '🎮', status: 'low-stock' },
-  { id: 15, name: 'Sapiens Kitabı', category: 'Kitap', price: 280, stock: 0, sales: 234, image: '📚', status: 'out-of-stock' },
+  { id: 1, name: 'iPhone 16 Pro', category: 'Elektronik', price: 31000, stock: 45, sales: 124, image: 'https://st-troy.mncdn.com/Content/media/ProductImg/original/mynf3tua-iphone-16-pro-128gb-desert-titanium-638617384632302005.jpg?width=785', status: 'active' },
+  { id: 2, name: 'Samsung Galaxy S25', category: 'Elektronik', price: 28000, stock: 67, sales: 98, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPvfokv_3kbRs8ofY0wwrLOvpwJjQvGQfxhQ&s', status: 'active' },
+  { id: 3, name: 'AirPods Pro', category: 'Elektronik', price: 7500, stock: 120, sales: 85, image: 'https://w7.pngwing.com/pngs/801/441/png-transparent-airpods-pro-thumbnail.png', status: 'active' },
+  { id: 4, name: 'MacBook Air M3', category: 'Elektronik', price: 45000, stock: 23, sales: 52, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6itQZMT2PwY2_exSDao1uyTLGtH-e7vhaRQ&s', status: 'active' },
+  { id: 5, name: 'Apple Watch Series 9', category: 'Elektronik', price: 12000, stock: 89, sales: 48, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0lX9mfoOr4Oxv9huxiiYExOcMGbmatsusdg&s', status: 'active' },
+  { id: 6, name: 'iPad Air', category: 'Elektronik', price: 18500, stock: 56, sales: 67, image: 'https://st-troy.mncdn.com/mnresize/775/775/Content/media/ProductImg/original/muxd3tua-apple-11-inc-ipad-air-m2-wi-fi-cellular-128gb-uzay-grisi-muxd3tua-638509375860704012.jpg', status: 'active' },
+  { id: 7, name: 'Sony WH-1000XM5', category: 'Elektronik', price: 9800, stock: 78, sales: 43, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOux4xPx67B3OnDxjDlNlRkvE8msB70vjl7Q&s', status: 'active' },
+  { id: 8, name: 'Adidas Spor Ayakkabı', category: 'Spor', price: 2500, stock: 150, sales: 89, image: 'https://e7.pngegg.com/pngimages/719/248/png-clipart-sneakers-white-shoe-adidas-racing-flat-adidas-white-outdoor-shoe.png', status: 'active' },
+  { id: 9, name: 'Nike Koşu Ayakkabısı', category: 'Spor', price: 3200, stock: 120, sales: 76, image: 'https://w7.pngwing.com/pngs/323/773/png-transparent-sneakers-basketball-shoe-sportswear-nike-shoe-outdoor-shoe-running-sneakers-thumbnail.png', status: 'active' },
+  { id: 10, name: 'Ofis Koltuğu ', category: 'Ev & Yaşam ', price: 450, stock: 200, sales: 134, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpBL2QPA86_4PGtFXhfLEgH5fxi4Y8fbf20g&s', status: 'active' },
+  { id: 11, name: 'Kahve Makinesi', category: 'Ev & Yaşam', price: 3500, stock: 45, sales: 56, image: 'https://w7.pngwing.com/pngs/706/793/png-transparent-espresso-machines-coffeemaker-krups-coffee.png', status: 'active' },
+  { id: 12, name: 'Dyson Süpürge', category: 'Ev & Yaşam', price: 15000, stock: 34, sales: 38, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPlVmLNrsSvA-XzWYbl3Eaf1XRHv9R6PaztA&s', status: 'low-stock' },
+  { id: 13, name: 'Karaca Yemek Takımı', category: 'Ev & Yaşam', price: 2800, stock: 67, sales: 45, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXGZEzJQYFLYedJr3kdYa3QwuXGVxfcQHSQA&s', status: 'active' },
+  { id: 14, name: 'PlayStation 5', category: 'Elektronik', price: 18000, stock: 12, sales: 67, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHEFb4Z484ryn9AFyU1CbvyC9wjpGGl25a_w&s', status: 'low-stock' },
+  { id: 15, name: 'Sapiens Kitabı', category: 'Kitap', price: 280, stock: 0, sales: 234, image: 'https://www.ekinkitap.com/u/ekinyayinevi/img/b/h/a/hayvanlardan-tanrilara-sapiens3130a450a888674275660ddeb5ac722f.png', status: 'out-of-stock' },
 ];
 
 // Ürün kategorileri
@@ -133,8 +127,7 @@ export const productCategories = [
   { value: 'Giyim', label: 'Giyim' }
 ];
 
-// customerStats objesi 
-
+// Müşteri istatistikleri
 export const customerStats = {
   total: 1250,
   newThisMonth: 82,
@@ -142,8 +135,7 @@ export const customerStats = {
   inactive: 280
 };
 
-// allCustomers dizisi 
-
+// Tüm müşteriler
 export const allCustomers = [
   { id: 'CUST-001', name: 'Ahmet Yılmaz', email: 'ahmet@email.com', phone: '0555 123 4567', totalSpent: 15400, orderCount: 5, status: 'active', avatar: 'https://i.pravatar.cc/150?img=12' },
   { id: 'CUST-002', name: 'Ayşe Demir', email: 'ayse@email.com', phone: '0555 234 5678', totalSpent: 8200, orderCount: 3, status: 'active', avatar: 'https://i.pravatar.cc/150?img=32' },
@@ -152,7 +144,7 @@ export const allCustomers = [
   { id: 'CUST-005', name: 'Ali Öztürk', email: 'ali@email.com', phone: '0555 567 8901', totalSpent: 3000, orderCount: 1, status: 'banned', avatar: 'https://i.pravatar.cc/150?img=56' }
 ];
 
-// analyticsRevenueData 
+// Analitik - Gelir Datası
 export const analyticsRevenueData = [
   { date: '01 Kas', revenue: 4500 },
   { date: '02 Kas', revenue: 4800 },
@@ -168,18 +160,17 @@ export const analyticsRevenueData = [
   { date: '12 Kas', revenue: 7500 },
 ];
 
-
-// productPerformanceData 
+// Ürün Performans Datası (image: 'URL'ler ile güncellendi)
 export const productPerformanceData = [
-  { id: 'p1', name: 'iPhone 15 Pro', image: '📱', views: 25000, unitsSold: 124, conversionRate: 4.96, revenue: 384400 },
-  { id: 'p2', name: 'Samsung Galaxy S24', image: '📱', views: 18000, unitsSold: 98, conversionRate: 5.44, revenue: 274400 },
-  { id: 'p3', name: 'AirPods Pro', image: '🎧', views: 35000, unitsSold: 85, conversionRate: 2.43, revenue: 63750 },
-  { id: 'p4', name: 'MacBook Air M3', image: '💻', views: 12000, unitsSold: 52, conversionRate: 4.33, revenue: 234000 },
-  { id: 'p8', name: 'Adidas Spor Ayakkabı', image: '👟', views: 45000, unitsSold: 89, conversionRate: 1.98, revenue: 222500 },
-  { id: 'p15', name: 'Sapiens Kitabı', image: '📚', views: 60000, unitsSold: 234, conversionRate: 0.39, revenue: 65520 },
+  { id: 'p1', name: 'iPhone 16 Pro', image: 'https://pngimg.com/d/iphone16_PNG38.png', views: 25000, unitsSold: 124, conversionRate: 4.96, revenue: 384400 },
+  { id: 'p2', name: 'Samsung Galaxy S25', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPvfokv_3kbRs8ofY0wwrLOvpwJjQvGQfxhQ&s', views: 18000, unitsSold: 98, conversionRate: 5.44, revenue: 274400 },
+  { id: 'p3', name: 'AirPods Pro', image: 'https://w7.pngwing.com/pngs/801/441/png-transparent-airpods-pro-thumbnail.png', views: 35000, unitsSold: 85, conversionRate: 2.43, revenue: 63750 },
+  { id: 'p4', name: 'MacBook Air M3', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6itQZMT2PwY2_exSDao1uyTLGtH-e7vhaRQ&s', views: 12000, unitsSold: 52, conversionRate: 4.33, revenue: 234000 },
+  { id: 'p8', name: 'Adidas Spor Ayakkabı', image: 'https://e7.pngegg.com/pngimages/719/248/png-clipart-sneakers-white-shoe-adidas-racing-flat-adidas-white-outdoor-shoe.png', views: 45000, unitsSold: 89, conversionRate: 1.98, revenue: 222500 },
+  { id: 'p15', name: 'Sapiens Kitabı', image: 'https://www.ekinkitap.com/u/ekinyayinevi/img/b/h/a/hayvanlardan-tanrilara-sapiens3130a450a888674275660ddeb5ac722f.png', views: 60000, unitsSold: 234, conversionRate: 0.39, revenue: 65520 },
 ];
 
-// customerInsightsData 
+// Müşteri İçgörüleri Datası
 export const customerInsightsData = {
   metrics: {
     clv: 1250, // Müşteri Yaşam Boyu Değeri

@@ -11,3 +11,7 @@
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
+
+.recharts-wrapper *:focus {
+  outline: none;
+}

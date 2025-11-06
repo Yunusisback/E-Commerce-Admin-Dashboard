@@ -1,6 +1,8 @@
 import Card from "../common/Card";
 import { formatCurrency, formatNumber } from "../../utils/helpers";
 
+
+
 const ProductPerformance = ({ data }) => {
   return (
     <Card>
@@ -41,7 +43,14 @@ const ProductPerformance = ({ data }) => {
               >
                 <td className="py-3 px-2">
                   <div className="flex items-center gap-3">
-                    <span className="text-2xl">{product.image}</span>
+                    
+                   
+                    <img 
+                      src={product.image}
+                      alt={product.name}
+                      className="w-10 h-10 rounded-md object-contain shadow-sm bg-white p-0.5"
+                    />
+
                     <div>
                       <p className="text-sm font-medium text-gray-900 dark:text-white">
                         {product.name}
