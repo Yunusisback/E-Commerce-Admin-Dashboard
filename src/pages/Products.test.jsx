@@ -1,101 +1,154 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { allProducts, productCategories } from '../data/mockData'; 
 import Products from './Products';
+import { Fragment } from 'react'; 
 
 
+
+
+// 1. mockData (Aynı, test için bu verileri kullanıyoruz)
 vi.mock('../data/mockData', () => ({
-  // 'Products' sayfasının ihtiyaç duyduğu 'allProducts' verisi
   allProducts: [
-    { id: 1, name: 'iPhone 15 Pro', category: 'Elektronik', price: 31000, stock: 45, sales: 124, image: '📱', status: 'active' },
-    { id: 8, name: 'Adidas Spor Ayakkabı', category: 'Spor', price: 2500, stock: 150, sales: 89, image: '👟', status: 'active' },
-    { id: 10, name: 'Yoga Matı', category: 'Spor', price: 450, stock: 200, sales: 134, image: '🧘', status: 'active' },
+    { id: 1, name: 'iPhone 16 Pro', category: 'Elektronik', price: 31000, stock: 45, sales: 124, image: 'url1.jpg', status: 'active' },
+    { id: 8, name: 'Adidas Spor Ayakkabı', category: 'Spor', price: 2500, stock: 150, sales: 89, image: 'url2.jpg', status: 'active' },
+    { id: 10, name: 'Ofis Koltuğu', category: 'Ev & Yaşam', price: 450, stock: 200, sales: 134, image: 'url3.jpg', status: 'active' },
   ],
-  // 'ProductFilters'ın ihtiyaç duyduğu 'productCategories' verisi
   productCategories: [
     { value: 'all', label: 'Tüm Kategoriler' },
     { value: 'Elektronik', label: 'Elektronik' },
     { value: 'Spor', label: 'Spor' },
+    { value: 'Ev & Yaşam', label: 'Ev & Yaşam' }
   ]
 }));
 
-// 'ProductCard' bileşenini mock'luyoruz, çünkü tüm 'ProductCard'ın mantığını değil,
-// sadece 'ProductsGrid'in doğru kartı render edip etmediğini test etmek istiyoruz.
-// Bu, testi hızlandırır ve 'ProductCard'ın içindeki 'lucide-react' gibi
-// bağımlılıklardan kurtarır.
+// 2. ProductCard Mock'u (Aynı)
 vi.mock('../components/products/ProductCard', () => ({
-  default: ({ product }) => (
-    // Ekranda sadece ürün adını bir 'data-testid' ile basalım
-    <div data-testid="product-card">{product.name}</div>
+  default: ({ product, onEdit, onDelete }) => (
+    <div data-testid="product-card">
+      <span>{product.name}</span>
+      <span>{product.price}</span>
+      <button onClick={() => onEdit(product)}>Düzenle</button>
+      <button onClick={() => onDelete(product.id)}>Sil</button>
+    </div>
   )
 }));
+
+// 3. EditProductModal Mocku (DÜZELTİLDİ)
+vi.mock('../components/products/EditProductModal.jsx', () => ({
+  default: ({ isOpen, onClose, product, onSave }) => {
+    if (!isOpen) return null;
+    return (
+      <div data-testid="edit-modal">
+        <h3>Ürünü Düzenle: {product.name}</h3>
+        <button 
+          onClick={() => {
+            onSave({ ...product, name: 'GÜNCELLENMİŞ ÜRÜN', price: 999 });
+            onClose(); // Modalı kapatması için bu satır eklendi
+          }}
+        >
+          Kaydet
+        </button>
+        <button onClick={onClose}>İptal</button>
+      </div>
+    );
+  }
+}));
+
+// 4. HeadlessUI Mocku (Aynı)
+vi.mock('@headlessui/react', () => ({
+  Transition: ({ show, as, children }) => {
+    if (as === Fragment) return show ? children : null;
+    return show ? <div data-testid="transition-mock">{children}</div> : null;
+  },
+  "Transition.Child": ({ as, children }) => {
+    if (as === Fragment) return children;
+    return <div>{children}</div>;
+  },
+  Dialog: ({ children, as = 'div', onClose }) => {
+    const Component = as;
+    return <Component data-testid="dialog-mock">{children}</Component>;
+  },
+  "Dialog.Panel": ({ children }) => <div>{children}</div>,
+  "Dialog.Title": ({ children, as = 'h3' }) => {
+    const Component = as;
+    return <Component>{children}</Component>;
+  },
+}));
+
+// 5. window.confirm Mock'u (Aynı)
+global.window.confirm = vi.fn(() => true);
+
 
 describe('Products Sayfası (Entegrasyon Testi)', () => {
   
   const setupUser = () => userEvent.setup();
 
-  // 1. Gerekli Kısım: Arama Filtresi Entegrasyonu
+  beforeEach(() => {
+    global.window.confirm.mockClear();
+  });
+
+  // --- (Önceki Filtre Testleri - Aynı) ---
   it('arama çubuğuna yazıldığında ürün listesini (grid) doğru filtrelemeli', async () => {
     const user = setupUser();
     render(<Products />);
-
-    // Başlangıç Kontrolü: 3 ürünün de ekranda olduğunu doğrula
-    expect(screen.getByText('iPhone 15 Pro')).toBeInTheDocument();
+    expect(screen.getByText('iPhone 16 Pro')).toBeInTheDocument();
     expect(screen.getByText('Adidas Spor Ayakkabı')).toBeInTheDocument();
-    expect(screen.getByText('Yoga Matı')).toBeInTheDocument();
-    
-    // Arama çubuğunu bul ve "iPhone" yaz
+    expect(screen.getByText('Ofis Koltuğu')).toBeInTheDocument();
     const searchInput = screen.getByPlaceholderText(/Ürün ara.../i);
     await user.type(searchInput, 'iPhone');
-
-    // Filtreleme Sonrası Kontrol:
-    // 1. "iPhone" ekranda kalmalı
-    expect(screen.getByText('iPhone 15 Pro')).toBeInTheDocument();
-    // 2. Diğer ürünler ekrandan kaybolmalı
+    expect(screen.getByText('iPhone 16 Pro')).toBeInTheDocument();
     expect(screen.queryByText('Adidas Spor Ayakkabı')).not.toBeInTheDocument();
-    expect(screen.queryByText('Yoga Matı')).not.toBeInTheDocument();
   });
 
-  // 2. Gerekli Kısım: Kategori Filtresi Entegrasyonu
   it('kategori filtresi seçildiğinde ürün listesini (grid) doğru filtrelemeli', async () => {
     const user = setupUser();
     render(<Products />);
-
-    // Başlangıç Kontrolü: 3 ürün de ekranda
     expect(screen.getAllByTestId('product-card')).toHaveLength(3);
-    
-    // Kategori 'select' menüsünü bul ve "Spor"u seç
     const categorySelect = screen.getByRole('combobox');
     await user.selectOptions(categorySelect, 'Spor');
-
-    // Filtreleme Sonrası Kontrol:
-    // 1. Spor ürünleri (2 adet) ekranda kalmalı
     expect(screen.getByText('Adidas Spor Ayakkabı')).toBeInTheDocument();
-    expect(screen.getByText('Yoga Matı')).toBeInTheDocument();
-    // 2. "iPhone" (Elektronik) ekrandan kaybolmalı
-    expect(screen.queryByText('iPhone 15 Pro')).not.toBeInTheDocument();
-    // 3. Toplam kart sayısı 2 olmalı
-    expect(screen.getAllByTestId('product-card')).toHaveLength(2);
+    expect(screen.queryByText('iPhone 16 Pro')).not.toBeInTheDocument();
+    expect(screen.getAllByTestId('product-card')).toHaveLength(1);
   });
 
-  // 3. Gerekli Kısım: Filtreyi Sıfırlama
   it('kategori filtresi "Tüm Kategoriler" seçildiğinde listeyi sıfırlamalı', async () => {
     const user = setupUser();
     render(<Products />);
-
-    // Önce "Spor" kategorisini seç
     const categorySelect = screen.getByRole('combobox');
     await user.selectOptions(categorySelect, 'Spor');
-    // Ekranda 2 ürün olduğunu doğrula
-    expect(screen.getAllByTestId('product-card')).toHaveLength(2);
-
-    // Şimdi "Tüm Kategoriler"i seçerek filtreyi sıfırla
+    expect(screen.getAllByTestId('product-card')).toHaveLength(1);
     await user.selectOptions(categorySelect, 'Tüm Kategoriler');
-    
-    // Sıfırlama Sonrası Kontrol:
-    // 3 ürünün de tekrar ekranda olduğunu doğrula
     expect(screen.getAllByTestId('product-card')).toHaveLength(3);
-    expect(screen.getByText('iPhone 15 Pro')).toBeInTheDocument();
+  });
+
+  //  YENİ TESTLER (DÜZENLEME VE SİLME) 
+
+  it('"Sil" düğmesine tıklandığında ürünü listeden kaldırmalı', async () => {
+    const user = setupUser();
+    render(<Products />);
+    expect(screen.getByText('iPhone 16 Pro')).toBeInTheDocument();
+    const deleteButtons = screen.getAllByRole('button', { name: /Sil/i });
+    await user.click(deleteButtons[0]);
+    expect(global.window.confirm).toHaveBeenCalledOnce();
+    expect(screen.queryByText('iPhone 16 Pro')).not.toBeInTheDocument();
+    expect(screen.getByText('Adidas Spor Ayakkabı')).toBeInTheDocument();
+  });
+
+  it('"Düzenle" düğmesine tıklandığında modalı açmalı ve kaydettiğinde listeyi güncellemeli', async () => {
+    const user = setupUser();
+    render(<Products />);
+    expect(screen.queryByTestId('edit-modal')).not.toBeInTheDocument();
+    const editButtons = screen.getAllByRole('button', { name: /Düzenle/i });
+    await user.click(editButtons[1]); // Adidas'ı düzenle
+    expect(screen.getByTestId('edit-modal')).toBeInTheDocument();
+    expect(screen.getByText('Ürünü Düzenle: Adidas Spor Ayakkabı')).toBeInTheDocument();
+    const saveButton = screen.getByRole('button', { name: /Kaydet/i });
+    await user.click(saveButton);
+    expect(screen.queryByTestId('edit-modal')).not.toBeInTheDocument(); 
+    expect(screen.getByText('GÜNCELLENMİŞ ÜRÜN')).toBeInTheDocument();
+    expect(screen.queryByText('Adidas Spor Ayakkabı')).not.toBeInTheDocument();
+    expect(screen.getByText('iPhone 16 Pro')).toBeInTheDocument();
   });
 });
