@@ -1,26 +1,22 @@
-import { useState, useEffect } from 'react'; 
+import { useState, useEffect } from 'react';
 import Card from '../common/Card';
 import Button from '../common/Button';
 import { useApp } from '../../context/AppContext'; 
 
 
 
-const inputStyle = "w-full mt-1 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500";
+
+const inputStyle = "w-full mt-1 px-4 py-2 bg-white dark:bg-zinc-700 border border-gray-200 dark:border-zinc-600 rounded-lg text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-amber-500";
 const labelStyle = "text-sm font-medium text-gray-700 dark:text-gray-300";
 
 const ProfileSettings = () => {
-  // 2. ADIM: Global 'user' ve 'setUser' state'ini al
   const { user, setUser } = useApp();
-
-  // 3. ADIM: Lokal form state'i, global 'user' statei ile başlat
   const [profile, setProfile] = useState({
     name: user.name,
     email: user.email,
   });
-  // 4. ADIM: Profil ve parola işlemleri için durum state'leri
   const [profileStatus, setProfileStatus] = useState('idle');
   const [passwordStatus, setPasswordStatus] = useState('idle');
-
   const [password, setPassword] = useState({
     current: '',
     new: '',
@@ -28,29 +24,24 @@ const ProfileSettings = () => {
   });
 
   const handleProfileChange = (e) => {
-
-    // Sadece lokal formu güncelle
     setProfile({ ...profile, [e.target.name]: e.target.value });
-    setProfileStatus('idle');
+    setProfileStatus('idle'); 
   };
 
   const handlePasswordChange = (e) => {
     setPassword({ ...password, [e.target.name]: e.target.value });
-    setPasswordStatus('idle');
+    setPasswordStatus('idle'); 
   };
 
   const handleProfileSubmit = (e) => {
     e.preventDefault();
-    setProfileStatus('loading');
-    console.log('Global profil güncelleniyor:', profile);
+    setProfileStatus('loading'); 
+    console.log('Profil güncelleniyor:', profile);
     
-    // API çağrısını simüle et
     setTimeout(() => {
-
-      // 4. ADIM: Başarılı olunca, 'setUser' ile GLOBAL state'i güncelle
-      setUser(profile);
-      setProfileStatus('success');
-    }, 1000);
+      setUser(profile); 
+      setProfileStatus('success'); 
+    }, 1000); 
   };
 
   const handlePasswordSubmit = (e) => {
@@ -59,8 +50,8 @@ const ProfileSettings = () => {
     console.log('Parola güncelleniyor...');
 
     setTimeout(() => {
-      setPasswordStatus('success');
-      setPassword({ current: '', new: '', confirm: '' });
+      setPasswordStatus('success'); 
+      setPassword({ current: '', new: '', confirm: '' }); 
     }, 1000);
   };
 
@@ -76,7 +67,7 @@ const ProfileSettings = () => {
               type="text" 
               id="name" 
               name="name"
-              value={profile.name} // Lokal 'profile' state'inden okur
+              value={profile.name}
               onChange={handleProfileChange}
               className={inputStyle} 
             />
@@ -87,7 +78,7 @@ const ProfileSettings = () => {
               type="email" 
               id="email" 
               name="email"
-              value={profile.email} // Lokal 'profile' state inden okur
+              value={profile.email}
               onChange={handleProfileChange}
               className={inputStyle} 
             />
@@ -98,14 +89,20 @@ const ProfileSettings = () => {
           {profileStatus === 'success' && (
             <span className="text-sm text-green-500">Profil Kaydedildi!</span>
           )}
-          <Button type="submit" variant="primary" disabled={profileStatus === 'loading'}>
+     
+          <Button 
+            type="submit" 
+            variant="primary" 
+            className="dark:bg-amber-600 dark:hover:bg-amber-700"
+            disabled={profileStatus === 'loading'}
+          >
             {profileStatus === 'loading' ? 'Kaydediliyor...' : 'Profili Güncelle'}
           </Button>
         </div>
       </form>
 
-      {/* (Parola formu)  */}
-      <hr className="my-6 border-gray-200 dark:border-gray-700" />
+      <hr className="my-6 border-gray-200 dark:border-zinc-700" />
+
       <h4 className="text-md font-semibold text-gray-900 dark:text-white mb-4">Parola Değiştir</h4>
       <form onSubmit={handlePasswordSubmit} className="space-y-4">
         <div>
@@ -143,11 +140,18 @@ const ProfileSettings = () => {
             />
           </div>
         </div>
+
         <div className="text-right flex items-center justify-end gap-4">
           {passwordStatus === 'success' && (
             <span className="text-sm text-green-500">Parola Değiştirildi!</span>
           )}
-          <Button type="submit" variant="secondary" disabled={passwordStatus === 'loading'}>
+         
+          <Button 
+            type="submit" 
+            variant="secondary" 
+            className="dark:bg-zinc-700 dark:hover:bg-zinc-600 dark:text-gray-300"
+            disabled={passwordStatus === 'loading'}
+          >
             {passwordStatus === 'loading' ? 'Değiştiriliyor...' : 'Parolayı Değiştir'}
           </Button>
         </div>

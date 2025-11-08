@@ -1,5 +1,3 @@
-// src/data/mockData.js (Tam ve Güncel Hali - Fotoğraf URL'leri ile)
-
 export const mockData = {
   // KPI Data
   kpis: {
@@ -8,6 +6,8 @@ export const mockData = {
     averageOrderValue: 117,
     activeCustomers: 892
   },
+
+
 
   // Günlük satış trendi (son 30 gün)
   salesTrend: [

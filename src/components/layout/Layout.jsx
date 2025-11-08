@@ -1,9 +1,11 @@
 import Sidebar from './Sidebar';
 import Header from './Header';
 
+
+
 const Layout = ({ children }) => {
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="flex h-screen bg-gray-50 dark:bg-zinc-900">
       <Sidebar />
       <div className="flex-1 flex flex-col overflow-hidden">
         <Header />

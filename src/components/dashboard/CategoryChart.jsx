@@ -1,64 +1,76 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import Card from '../common/Card';
+import { mockData } from '../../data/mockData';
 import { formatCurrency } from '../../utils/helpers';
+import { useTheme } from '../../hooks/useTheme'; 
 
 
 
-const CategoryChart = ({ data }) => {
-  const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'];
+const CategoryChart = () => {
+  const { theme } = useTheme();
+  const categoryData = mockData.categoryData;
 
+  const LIGHT_COLORS = ['#f59e0b', '#10b981', '#0ea5e9', '#e11d48', '#7c3aed'];
+  const DARK_COLORS =  ['#facc15', '#34d399', '#38bdf8', '#f43f5e', '#a78bfa'];
+  
+
+  const COLORS = theme === 'light' ? LIGHT_COLORS : DARK_COLORS;
 
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
+      const data = payload[0].payload;
+
+      const colorIndex = categoryData.findIndex(item => item.name === data.name);
+      const color = COLORS[colorIndex % COLORS.length];
+
       return (
-        <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
-          <p className="text-sm font-medium text-gray-900 dark:text-white mb-1">
-            {payload[0].name}
+        <div className="p-3 bg-white dark:bg-zinc-800 rounded-md shadow-lg border border-gray-200 dark:border-zinc-700">
+          <p className="font-semibold text-lg text-gray-900 dark:text-white">{data.name}</p>
+   
+          <p className="text-sm" style={{ color: color }}>
+            Satış: {formatCurrency(data.value)}
           </p>
-          <p className="text-sm text-blue-600 dark:text-blue-400">
-            {/* helpers.js dosyasından gelen formatlama fonksiyonu */}
-            {formatCurrency(payload[0].value)}
-          </p>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            {payload[0].payload.percentage}% toplam satıştan
-          </p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">Oran: {data.percentage}%</p>
         </div>
       );
     }
     return null;
   };
 
-  //  Ana bileşen Render alanı
   return (
     <Card>
+      <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
+        Kategori Bazlı Satışlar
+      </h2>
+      <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+        Kategorilere göre satış dağılımı
+      </p>
 
-      {/* 1. Başlık Alanı */}
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Kategori Bazlı Satışlar</h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400">Kategorilere göre satış dağılımı</p>
-      </div>
-
-      {/* 2. Grafik Alanı  */}
       <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie
-            data={data}
-            cx="50%" // Yatayda ortala
-            cy="50%" // Dikeyde ortala
-            outerRadius={100} // Dairenin boyutu
-            fill="#8884d8" // Varsayılan dolgu 
-            dataKey="value" // 'data' dizisinden hangi anahtarın değer olarak kullanılacağı
-            label={({ percentage }) => `${percentage}%`} // dilimlerin üzerinde yüzdelik göster
+            data={categoryData}
+            cx="50%"
+            cy="50%"
+            labelLine={false}
+ 
+            label={({ percent }) => `${(percent * 100).toFixed(0)}%`} 
+            outerRadius={100} 
+            fill="#8884d8"
+            dataKey="value"
+            stroke="none" 
           >
-
-            {data.map((entry, index) => (
+            {categoryData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          
           <Tooltip content={<CustomTooltip />} />
-          <Legend />
+          <Legend 
+           
+            formatter={(value) => <span className="text-gray-700 dark:text-gray-300">{value}</span>}
+            iconType="square"
+          />
         </PieChart>
       </ResponsiveContainer>
     </Card>

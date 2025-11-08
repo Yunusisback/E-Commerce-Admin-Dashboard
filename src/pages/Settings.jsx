@@ -3,6 +3,8 @@ import ProfileSettings from '../components/settings/ProfileSettings';
 import NotificationSettings from '../components/settings/NotificationSettings';
 import { User, Bell } from 'lucide-react';
 
+
+
 const Settings = () => {
   const [activeTab, setActiveTab] = useState('profile');
 
@@ -20,8 +22,8 @@ const Settings = () => {
         </p>
       </div>
 
-      {/* Sekme Gezintisi  */}
-      <div className="flex gap-2 border-b border-gray-200 dark:border-gray-700">
+    
+      <div className="flex gap-2 border-b border-gray-200 dark:border-zinc-700">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -31,7 +33,8 @@ const Settings = () => {
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-2 px-4 py-3 -mb-px font-medium transition-colors ${
                 isActive
-                  ? 'border-b-2 border-blue-600 text-blue-600 dark:text-blue-400'
+                 
+                  ? 'border-b-2 border-blue-600 text-blue-600 dark:border-amber-500 dark:text-amber-400'
                   : 'border-b-2 border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'
               }`}
             >

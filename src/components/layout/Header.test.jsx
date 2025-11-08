@@ -6,9 +6,6 @@ import Header from './Header';
 import { AppProvider } from '../../context/AppContext'; 
 import { useTheme } from '../../hooks/useTheme';
 
-
-
-
 const mockToggleTheme = vi.fn();
 vi.mock('../../hooks/useTheme', () => ({
   useTheme: () => ({
@@ -22,13 +19,15 @@ vi.mock('lucide-react', () => ({
   Bell: (props) => <div data-testid="bell-icon" {...props} />,
   Search: () => <div data-testid="search-icon" />,
 }));
+
+//  @headlessui/react (Transition) mock'u GÜNCELLENDİ
+// 'show' true ise içeriği göster, değilse 'null' döndür
 vi.mock('@headlessui/react', () => ({
-  Transition: ({ show, children, as }) => {
-    return show ? children : null;
+  Transition: ({ show, children }) => {
+    return show ? children : null; 
   }
 }));
 
-// 2. ADIM Render fonksiyonunu AppProvider ile sarmala
 const renderHeader = () => {
   return render(
     <AppProvider> 
@@ -41,12 +40,12 @@ describe('Header Bileşeni', () => {
   
   let user; 
   beforeEach(() => {
-    user = userEvent.setup();
+    user = userEvent.setup(); // Zamanlayıcı ayarı kaldırıldı
     mockToggleTheme.mockClear();
   });
 
   it('tema düğmesine tıklandığında useTheme() hookundan gelen toggleTheme fonksiyonunu çağırmalı', async () => {
-    renderHeader(); // 3. ADIM 'render' yerine 'renderHeader' kullan
+    renderHeader(); 
     
     const moonIcon = screen.getByTestId('moon-icon');
     const themeButton = moonIcon.closest('button');
@@ -58,24 +57,36 @@ describe('Header Bileşeni', () => {
     renderHeader(); 
 
     expect(screen.queryByText('Bildirimler')).not.toBeInTheDocument();
+    
+    // 3.  Zil ikonunu bul
     const bellButton = screen.getByTestId('bell-icon').closest('button');
+    
+    // Paneli aç
     await user.click(bellButton);
+    
     expect(screen.getByText('Bildirimler')).toBeInTheDocument();
     expect(screen.getByText(/Yeni sipariş alındı/i)).toBeInTheDocument();
+    
+    // Paneli kapat
     await user.click(bellButton);
+
     expect(screen.queryByText('Bildirimler')).not.toBeInTheDocument();
   });
 
-  it('panel açıkken dışarıya tıklandığında paneli kapatmalı', async () => {
-    renderHeader();
+  // 4.  "Click outside" testi, Header.jsx'teki boş useEffect'e
+  // ve zamanlama sorunlarına göre güncellendi
+  it('panel açıkken dışarıya tıklandığında paneli kapatmalı (useEffect mantığı)', async () => {
+    renderHeader(); 
 
     const bellButton = screen.getByTestId('bell-icon').closest('button');
+    // Paneli aç
     await user.click(bellButton);
     expect(screen.getByText('Bildirimler')).toBeInTheDocument(); 
 
     const searchInput = screen.getByPlaceholderText(/Ürün, sipariş veya müşteri ara.../i);
-    await user.click(searchInput);
-
+    
+    // 'mousedown' event'ini manuel tetikle (Header.jsx'teki useEffect bunu dinliyor)
+    fireEvent.mouseDown(searchInput);
     expect(screen.queryByText('Bildirimler')).not.toBeInTheDocument();
   });
 });

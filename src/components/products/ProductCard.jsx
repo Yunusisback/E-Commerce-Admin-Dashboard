@@ -1,10 +1,11 @@
-
 import { Edit, Trash2, TrendingUp } from 'lucide-react';
 import { formatCurrency, formatNumber } from '../../utils/helpers';
 
 
+
 const ProductCard = ({ product, onEdit, onDelete }) => {
   
+  // 1.  Boş fonksiyon 'product.status'u kullanacak şekilde dolduruldu
   const getStockStatus = () => {
     if (product.status === 'out-of-stock') {
       return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
@@ -15,6 +16,7 @@ const ProductCard = ({ product, onEdit, onDelete }) => {
     return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
   };
 
+  // 2.  Boş fonksiyon 'product.status'u kullanacak şekilde dolduruldu
   const getStockText = () => {
     if (product.status === 'out-of-stock') return 'Stokta Yok';
     if (product.status === 'low-stock') return 'Az Stok';
@@ -22,7 +24,7 @@ const ProductCard = ({ product, onEdit, onDelete }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow p-4">
+    <div className="bg-white dark:bg-zinc-800 rounded-lg shadow-md hover:shadow-lg transition-shadow p-4">
       <div className="flex items-start justify-between mb-3">
         <img 
           src={product.image}
@@ -45,7 +47,7 @@ const ProductCard = ({ product, onEdit, onDelete }) => {
       <div className="flex items-center justify-between mb-3">
         <div>
           <p className="text-xs text-gray-500 dark:text-gray-400">Fiyat</p>
-          <p className="text-lg font-bold text-blue-600 dark:text-blue-400">
+          <p className="text-lg font-bold text-blue-600 dark:text-amber-400">
             {formatCurrency(product.price)}
           </p>
         </div>
@@ -57,25 +59,24 @@ const ProductCard = ({ product, onEdit, onDelete }) => {
         </div>
       </div>
 
-      <div className="flex items-center gap-2 mb-4 p-2 bg-gray-50 dark:bg-gray-700/50 rounded">
+      <div className="flex items-center gap-2 mb-4 p-2 bg-gray-50 dark:bg-zinc-700/50 rounded">
         <TrendingUp className="w-4 h-4 text-green-500" />
         <span className="text-sm text-gray-700 dark:text-gray-300">
           {formatNumber(product.sales)} satış
         </span>
       </div>
-
-      {/* 2. ADIM: Eylem Düğmelerine 'onClick' eklendi */}
+      
       <div className="flex gap-2">
         <button 
-          onClick={() => onEdit(product)} // Tıklandığında onEdit'i çağır
-          className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+          onClick={() => onEdit(product)} 
+          className="flex-1 flex items-center justify-center gap-2 px-3 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-amber-600 dark:hover:bg-amber-700 text-white rounded-lg transition-colors"
         >
           <Edit className="w-4 h-4" />
           <span className="text-sm font-medium">Düzenle</span>
         </button>
         <button 
-          onClick={() => onDelete(product.id)} // Tıklandığında onDelete'i çağır
-          className="p-2 bg-red-100 hover:bg-red-200 dark:bg-red-900/30 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 rounded-lg transition-colors"
+          onClick={() => onDelete(product.id)} 
+          className="p-2 bg-red-100 hover:bg-red-200 dark:bg-zinc-700 dark:hover:bg-zinc-600 text-red-600 dark:text-red-500 rounded-lg transition-colors"
         >
           <Trash2 className="w-4 h-4" />
         </button>

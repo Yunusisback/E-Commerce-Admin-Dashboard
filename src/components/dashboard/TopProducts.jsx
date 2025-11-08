@@ -2,6 +2,8 @@ import { TrendingUp } from 'lucide-react';
 import Card from '../common/Card';
 import { formatCurrency, formatNumber } from '../../utils/helpers';
 
+
+
 const TopProducts = ({ data }) => {
   return (
     <Card>
@@ -12,8 +14,9 @@ const TopProducts = ({ data }) => {
       <div className="space-y-4">
         {data.map((product, index) => (
           <div key={product.id} className="flex items-center gap-4">
-            <div className="flex-shrink-0 w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-              <span className="text-sm font-bold text-blue-600 dark:text-blue-400">#{index + 1}</span>
+   
+            <div className="flex-shrink-0 w-8 h-8 bg-blue-100 dark:bg-amber-900/50 rounded-full flex items-center justify-center">
+              <span className="text-sm font-bold text-blue-600 dark:text-amber-400">#{index + 1}</span>
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{product.name}</p>

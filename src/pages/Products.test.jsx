@@ -89,7 +89,7 @@ describe('Products Sayfası (Entegrasyon Testi)', () => {
     global.window.confirm.mockClear();
   });
 
-  // --- (Önceki Filtre Testleri - Aynı) ---
+  //  (Önceki Filtre Testleri - Aynı) 
   it('arama çubuğuna yazıldığında ürün listesini (grid) doğru filtrelemeli', async () => {
     const user = setupUser();
     render(<Products />);

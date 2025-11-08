@@ -1,17 +1,15 @@
+
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import Card from '../common/Card';
 import { formatCurrency, formatNumber } from '../../utils/helpers';
 
+
 const KPICard = ({ title, value, trend, icon: Icon, type = 'number' }) => {
   const isPositive = trend >= 0;
-  
   const formatValue = () => {
-    if (type === 'currency') {
-      return formatCurrency(value);
-    }
+    if (type === 'currency') return formatCurrency(value);
     return formatNumber(value);
   };
-
   return (
     <Card className="hover:shadow-lg transition-shadow">
       <div className="flex items-start justify-between">
@@ -32,12 +30,13 @@ const KPICard = ({ title, value, trend, icon: Icon, type = 'number' }) => {
             <span className="text-sm text-gray-500 dark:text-gray-400">vs geçen ay</span>
           </div>
         </div>
-        <div className="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg">
-          <Icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+        
+
+        <div className="bg-blue-100 dark:bg-amber-900/50 p-3 rounded-lg">
+          <Icon className="w-6 h-6 text-blue-600 dark:text-amber-400" />
         </div>
       </div>
     </Card>
   );
 };
-
 export default KPICard;

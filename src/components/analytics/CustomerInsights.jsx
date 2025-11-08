@@ -2,9 +2,17 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recha
 import Card from '../common/Card';
 import { formatCurrency } from '../../utils/helpers';
 import { TrendingUp, TrendingDown, DollarSign, UserCheck } from 'lucide-react';
+import { useTheme } from '../../hooks/useTheme'; 
+
+
 
 const CustomerInsights = ({ data }) => {
-  const COLORS = ['#3B82F6', '#10B981']; 
+  const { theme } = useTheme();
+
+  const COLORS = [
+    theme === 'light' ? '#10B981' : '#059669', 
+    theme === 'light' ? '#FBBF24' : '#f59e0b' 
+  ];
 
   return (
     <Card>
@@ -15,11 +23,10 @@ const CustomerInsights = ({ data }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         
-        {/* Sol Taraf*/}
-
+        {/* Sol Taraf: KPI Metrikleri  */}
         <div className="space-y-4">
-          <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-            <UserCheck className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+          <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-zinc-700 rounded-lg">
+            <UserCheck className="w-6 h-6 text-blue-600 dark:text-amber-400" />
             <div>
               <p className="text-sm text-gray-600 dark:text-gray-400">Müşteri Yaşam Boyu Değeri (CLV)</p>
               <p className="text-xl font-bold text-gray-900 dark:text-white">
@@ -27,7 +34,7 @@ const CustomerInsights = ({ data }) => {
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+          <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-zinc-700 rounded-lg">
             <DollarSign className="w-6 h-6 text-green-600 dark:text-green-400" />
             <div>
               <p className="text-sm text-gray-600 dark:text-gray-400">Müşteri Edinme Maliyeti (CAC)</p>
@@ -36,7 +43,7 @@ const CustomerInsights = ({ data }) => {
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+          <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-zinc-700 rounded-lg">
             <TrendingDown className="w-6 h-6 text-red-600 dark:text-red-400" />
             <div>
               <p className="text-sm text-gray-600 dark:text-gray-400">Ayrılma Oranı (Churn)</p>
@@ -47,7 +54,7 @@ const CustomerInsights = ({ data }) => {
           </div>
         </div>
 
-        {/* Sağ Taraf*/}
+        {/* Sağ Taraf: Yeni vs Mevcut Müşteri Grafiği */}
         <div>
           <h4 className="text-md font-medium text-gray-900 dark:text-white mb-2 text-center">
             Yeni vs. Mevcut Müşteri
@@ -60,7 +67,8 @@ const CustomerInsights = ({ data }) => {
                 cx="50%"
                 cy="50%"
                 outerRadius={80}
-                label={({ name, percentage }) => `${name} (${percentage}%)`}
+                label={({ percentage }) => `${percentage.toFixed(0)}%`} 
+                stroke="none"
               >
                 {data.newVsReturning.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
