@@ -17,11 +17,11 @@ const Dashboard = () => {
   const [kpiStats, setKpiStats] = useState(mockData.kpis);
   const [salesTrend, setSalesTrend] = useState(mockData.salesTrend);
   const [categoryData, setCategoryData] = useState(mockData.categoryData);
-  // (Diğerlerini de state'e alabiliriz, ama şimdilik bu 3'ü yeterli)
+  // (Diğerlerini de state'e alabiliriz  ama şimdilik bu 3'ü yeterli)
 
   /**
-   *  DateFilter'dan gelen 'filter' değerini işleyen fonksiyon.
-   * Bu fonksiyon artık 'console.log' yerine state'i güncelliyor.
+   *  DateFilter'dan gelen 'filter' değerini işleyen fonksiyon
+   * Bu fonksiyon artık 'console.log' yerine state'i güncelliyor
    */
   const handleFilterChange = (filter) => {
     console.log('Seçilen filtre:', filter);

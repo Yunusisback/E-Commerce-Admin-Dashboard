@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import ProductCard from './ProductCard';
 
-// 'lucide-react' ikonlarını sahte (mock) ikonlarla değiştiriyoruz
+
 vi.mock('lucide-react', async (importOriginal) => {
   const mod = await importOriginal();
   return {

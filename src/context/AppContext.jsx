@@ -1,5 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 
+
+
 const AppContext = createContext();
 
 export const useApp = () => {
@@ -12,9 +14,13 @@ export const useApp = () => {
 
 export const AppProvider = ({ children }) => {
   const [activePage, setActivePage] = useState('dashboard');
+  const [user, setUser] = useState({
+    name: 'Admin User',
+    email: 'admin@ecommerce.com',
+  });
 
   return (
-    <AppContext.Provider value={{ activePage, setActivePage }}>
+    <AppContext.Provider value={{ activePage, setActivePage, user, setUser }}>
       {children}
     </AppContext.Provider>
   );
