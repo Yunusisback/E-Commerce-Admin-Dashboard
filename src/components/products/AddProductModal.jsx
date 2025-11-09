@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from 'react';
+import { useState, Fragment } from 'react';
 import { Transition, Dialog } from '@headlessui/react';
 import Button from '../common/Button';
 
@@ -6,40 +6,32 @@ import Button from '../common/Button';
 const inputStyle = "w-full mt-1 px-4 py-2 bg-white dark:bg-zinc-700 border border-gray-200 dark:border-zinc-600 rounded-lg text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-amber-500";
 const labelStyle = "text-sm font-medium text-gray-700 dark:text-gray-300";
 
-// Ürün düzenleme modalı bileşeni
-const EditProductModal = ({ isOpen, onClose, product, onSave }) => {
+// Yeni ürün ekleme modalı bileşeni
+const AddProductModal = ({ isOpen, onClose, onSave }) => {
+  
   // Form verisi durumu
   const [formData, setFormData] = useState({
     name: '',
-    category: '',
+    category: 'Elektronik', 
     price: 0,
     stock: 0,
+    sales: 0, 
+    image: 'https://source.unsplash.com/random/400x400?product', 
+    status: 'active' 
   });
-
-  // Ürün prop'u değiştiğinde formu güncelle
-  useEffect(() => {
-    if (product) {
-      setFormData({
-        name: product.name,
-        category: product.category,
-        price: product.price,
-        stock: product.stock,
-      });
-    }
-  }, [product]);
 
   // Form değişikliği işleyicisi
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const newValue = (name === 'price' || name === 'stock') ? parseFloat(value) : value;
+    const newValue = (name === 'price' || name === 'stock' || name === 'sales') ? parseFloat(value) : value;
     setFormData(prev => ({ ...prev, [name]: newValue }));
   };
 
   // Form gönderme işleyicisi
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave({ ...product, ...formData });
-    onClose(); 
+    onSave(formData);
+    onClose(); // Modalı kapat
   };
 
   return (
@@ -68,15 +60,15 @@ const EditProductModal = ({ isOpen, onClose, product, onSave }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-  
               <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-800 p-6 text-left align-middle shadow-xl transition-all">
                 <Dialog.Title
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 dark:text-white"
                 >
-                  Ürünü Düzenle: {product?.name}
+                  Yeni Ürün Ekle
                 </Dialog.Title>
                 
+                {/* Ürün ekleme formu */}
                 <form onSubmit={handleSubmit} className="mt-4 space-y-4">
                   <div>
                     <label htmlFor="name" className={labelStyle}>Ürün Adı</label>
@@ -86,7 +78,8 @@ const EditProductModal = ({ isOpen, onClose, product, onSave }) => {
                       id="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className={inputStyle} 
+                      className={inputStyle}
+                      placeholder="iPhone 17 Pro"
                     />
                   </div>
                   
@@ -99,7 +92,7 @@ const EditProductModal = ({ isOpen, onClose, product, onSave }) => {
                         id="category"
                         value={formData.category}
                         onChange={handleChange}
-                        className={inputStyle} 
+                        className={inputStyle}
                       />
                     </div>
                     <div>
@@ -110,7 +103,7 @@ const EditProductModal = ({ isOpen, onClose, product, onSave }) => {
                         id="price"
                         value={formData.price}
                         onChange={handleChange}
-                        className={inputStyle} 
+                        className={inputStyle}
                       />
                     </div>
                     <div>
@@ -121,19 +114,31 @@ const EditProductModal = ({ isOpen, onClose, product, onSave }) => {
                         id="stock"
                         value={formData.stock}
                         onChange={handleChange}
-                        className={inputStyle} 
+                        className={inputStyle}
                       />
                     </div>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="image" className={labelStyle}>Resim URL</label>
+                    <input
+                      type="text"
+                      name="image"
+                      id="image"
+                      value={formData.image}
+                      onChange={handleChange}
+                      className={inputStyle}
+                      placeholder="https://..."
+                    />
                   </div>
 
                   {/* Form butonları */}
                   <div className="mt-6 flex justify-end gap-3">
-                
                     <Button type="button" variant="secondary" onClick={onClose}>
                       İptal
                     </Button>
                     <Button type="submit" variant="primary">
-                      Kaydet
+                      Ürünü Ekle
                     </Button>
                   </div>
                 </form>
@@ -146,4 +151,4 @@ const EditProductModal = ({ isOpen, onClose, product, onSave }) => {
   );
 };
 
-export default EditProductModal;
+export default AddProductModal;

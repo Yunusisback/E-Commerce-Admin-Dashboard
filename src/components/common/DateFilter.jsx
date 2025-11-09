@@ -1,26 +1,31 @@
 import { useState } from 'react';
 
-
-
+// Tarih filtre bileşeni
 const DateFilter = ({ onFilterChange }) => {
+  
+  // Aktif filtre durumunu yönetir
   const [activeFilter, setActiveFilter] = useState('30d');
+  
+  // Filtre seçenekleri
   const filters = [
     { label: 'Bugün', value: 'today' },
     { label: '7 Gün', value: '7d' },
     { label: '30 Gün', value: '30d' },
     { label: 'Yıllık', value: 'year' }
   ];
+  
+  // Filtre tıklama işleyicisi
   const handleFilterClick = (value) => {
     setActiveFilter(value);
     if (onFilterChange) onFilterChange(value);
   };
+  
   return (
     <div className="flex gap-2">
       {filters.map((filter) => (
         <button
           key={filter.value}
           onClick={() => handleFilterClick(filter.value)}
-          // DÜZELTME: Aktif stil 'dark:bg-amber-600' (Kehribar) oldu
           className={`px-4 py-2 rounded-lg font-medium transition-colors ${
             activeFilter === filter.value
               ? 'bg-blue-600 text-white dark:bg-amber-600 dark:text-white'

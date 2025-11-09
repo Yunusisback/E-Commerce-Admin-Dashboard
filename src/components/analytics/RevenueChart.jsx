@@ -3,8 +3,7 @@ import Card from '../common/Card';
 import { formatCurrency } from '../../utils/helpers';
 import { useTheme } from '../../hooks/useTheme'; 
 
-
-
+// Özel tooltip bileşeni
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
@@ -21,6 +20,7 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null;
 };
 
+// Gelir grafiği bileşeni
 const RevenueChart = ({ data }) => {
   const { theme } = useTheme();
 

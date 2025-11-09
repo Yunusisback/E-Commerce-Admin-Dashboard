@@ -5,10 +5,11 @@ import { TrendingUp, TrendingDown, DollarSign, UserCheck } from 'lucide-react';
 import { useTheme } from '../../hooks/useTheme'; 
 
 
-
+// Müşteri analizleri bileşeni
 const CustomerInsights = ({ data }) => {
   const { theme } = useTheme();
 
+// Pasta grafik için renkler
   const COLORS = [
     theme === 'light' ? '#10B981' : '#059669', 
     theme === 'light' ? '#FBBF24' : '#f59e0b' 

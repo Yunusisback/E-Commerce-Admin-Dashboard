@@ -1,5 +1,3 @@
-/* src/index.css */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,11 +10,11 @@
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  /* DÜZELTME: Koyu mod arka planı 'zinc-900' (Kömür) oldu */
   @apply bg-gray-50 dark:bg-zinc-900;
 }
 
-/* Recharts (Grafik) focus çerçevesi kaldırma */
+
 .recharts-wrapper *:focus {
   outline: none;
 }
+

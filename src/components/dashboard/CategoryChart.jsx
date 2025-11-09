@@ -4,19 +4,19 @@ import { mockData } from '../../data/mockData';
 import { formatCurrency } from '../../utils/helpers';
 import { useTheme } from '../../hooks/useTheme'; 
 
-
-
+// Kategori grafik bileşeni
 const CategoryChart = () => {
   const { theme } = useTheme();
   const categoryData = mockData.categoryData;
 
+  // Renk paletleri
   const LIGHT_COLORS = ['#f59e0b', '#10b981', '#0ea5e9', '#e11d48', '#7c3aed'];
   const DARK_COLORS =  ['#facc15', '#34d399', '#38bdf8', '#f43f5e', '#a78bfa'];
   
-
+  // Tema  renkleri
   const COLORS = theme === 'light' ? LIGHT_COLORS : DARK_COLORS;
 
-
+  // Özel tooltip bileşeni
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;

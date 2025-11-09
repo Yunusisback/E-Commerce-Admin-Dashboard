@@ -9,11 +9,11 @@ import {
   LogOut,
 } from 'lucide-react';
 
-
+// Sidebar bileşeni: yan menüyü render eder
 const Sidebar = () => {
 
+  // Menü öğeleri
   const menuItems = [
-
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/' },
     { id: 'orders', label: 'Siparişler', icon: ShoppingCart, path: '/orders' },
     { id: 'products', label: 'Ürünler', icon: Package, path: '/products' },
@@ -22,10 +22,10 @@ const Sidebar = () => {
     { id: 'settings', label: 'Ayarlar', icon: Settings, path: '/settings' },
   ];
 
-return (
+  return (
     <aside className="w-64 bg-white dark:bg-zinc-800 border-r border-gray-200 dark:border-zinc-700 flex flex-col h-screen">
       
-      {/* Logo  */}
+      {/* Logo bölümü */}
       <div className="p-6 border-b border-gray-200 dark:border-zinc-700">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 dark:from-amber-500 dark:to-orange-600 rounded-lg flex items-center justify-center">
@@ -38,7 +38,8 @@ return (
         </div>
       </div>
 
-<nav className="flex-1 p-4 space-y-1">
+      {/* Navigasyon menüsü */}
+      <nav className="flex-1 p-4 space-y-1">
         {menuItems.map((item) => {
           const Icon = item.icon;
           return (
@@ -60,8 +61,7 @@ return (
         })}
       </nav>
 
-      {/* Çıkış Yap Alanı*/}
-      
+      {/* Çıkış butonu */}
       <div className="p-4 border-t border-gray-200 dark:border-zinc-700">
         <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-red-600 dark:text-red-500 hover:bg-red-50 dark:hover:bg-zinc-700 transition-colors">
           <LogOut className="w-5 h-5" />

@@ -1,4 +1,5 @@
 const Button = ({ children, onClick, variant = 'primary', className = '' }) => {
+
   const variants = {
     primary: 'bg-blue-600 hover:bg-blue-700 text-white',
     secondary: 'bg-gray-200 hover:bg-gray-300 text-gray-800 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white',

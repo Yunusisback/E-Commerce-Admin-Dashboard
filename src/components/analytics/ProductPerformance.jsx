@@ -2,7 +2,7 @@ import Card from "../common/Card";
 import { formatCurrency, formatNumber } from "../../utils/helpers";
 
 
-
+// Ürün performansı bileşeni
 const ProductPerformance = ({ data }) => {
   return (
     <Card>

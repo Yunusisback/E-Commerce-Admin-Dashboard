@@ -1,42 +1,49 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Card from '../common/Card';
 import Button from '../common/Button';
 import { useApp } from '../../context/AppContext'; 
 
 
-
-
 const inputStyle = "w-full mt-1 px-4 py-2 bg-white dark:bg-zinc-700 border border-gray-200 dark:border-zinc-600 rounded-lg text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-amber-500";
 const labelStyle = "text-sm font-medium text-gray-700 dark:text-gray-300";
 
+// Profil ayarları bileşeni
 const ProfileSettings = () => {
   const { user, setUser } = useApp();
+  
+  // Profil verisi durumu
   const [profile, setProfile] = useState({
     name: user.name,
     email: user.email,
   });
+  
+  // Profil ve parola durumları
   const [profileStatus, setProfileStatus] = useState('idle');
   const [passwordStatus, setPasswordStatus] = useState('idle');
+  
+  // Parola formu durumu
   const [password, setPassword] = useState({
     current: '',
     new: '',
     confirm: ''
   });
 
+  // Profil değişikliği işleyicisi
   const handleProfileChange = (e) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
     setProfileStatus('idle'); 
   };
 
+  // Parola değişikliği işleyicisi
   const handlePasswordChange = (e) => {
     setPassword({ ...password, [e.target.name]: e.target.value });
     setPasswordStatus('idle'); 
   };
 
+  // Profil güncelleme işleyicisi
   const handleProfileSubmit = (e) => {
     e.preventDefault();
     setProfileStatus('loading'); 
-    console.log('Profil güncelleniyor:', profile);
     
     setTimeout(() => {
       setUser(profile); 
@@ -44,10 +51,10 @@ const ProfileSettings = () => {
     }, 1000); 
   };
 
+  // Parola değiştirme işleyicisi
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
     setPasswordStatus('loading');
-    console.log('Parola güncelleniyor...');
 
     setTimeout(() => {
       setPasswordStatus('success'); 
@@ -59,6 +66,7 @@ const ProfileSettings = () => {
     <Card>
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Profil Ayarları</h3>
       
+      {/* Profil formu */}
       <form onSubmit={handleProfileSubmit} className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -103,6 +111,7 @@ const ProfileSettings = () => {
 
       <hr className="my-6 border-gray-200 dark:border-zinc-700" />
 
+      {/* Parola değiştirme formu */}
       <h4 className="text-md font-semibold text-gray-900 dark:text-white mb-4">Parola Değiştir</h4>
       <form onSubmit={handlePasswordSubmit} className="space-y-4">
         <div>

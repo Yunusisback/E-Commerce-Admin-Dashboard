@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import Card from '../common/Card';
 
-
-
 // Switch/Toggle bileşeni
 const SwitchToggle = ({ label, description, enabled, setEnabled }) => {
   return (
@@ -14,7 +12,6 @@ const SwitchToggle = ({ label, description, enabled, setEnabled }) => {
       <button
         type="button"
         onClick={() => setEnabled(!enabled)}
-     
         className={`relative inline-flex items-center h-6 w-11 flex-shrink-0 rounded-full cursor-pointer transition-colors duration-200 ${
           enabled ? 'bg-blue-600 dark:bg-amber-600' : 'bg-gray-200 dark:bg-zinc-700'
         }`}
@@ -29,23 +26,28 @@ const SwitchToggle = ({ label, description, enabled, setEnabled }) => {
   );
 };
 
-
+// Bildirim ayarları bileşeni
 const NotificationSettings = () => {
+  
+  // E-posta bildirim durumları
   const [emailNotifications, setEmailNotifications] = useState({
     newOrder: true,
     lowStock: true,
     weeklyReport: false,
   });
 
+  // Push bildirim durumları
   const [pushNotifications, setPushNotifications] = useState({
     newOrder: true,
     statusUpdate: true,
   });
 
+  // E-posta değişikliği işleyicisi
   const handleEmailChange = (key) => {
     setEmailNotifications(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
+  // Push değişikliği işleyicisi
   const handlePushChange = (key) => {
     setPushNotifications(prev => ({ ...prev, [key]: !prev[key] }));
   };
@@ -55,6 +57,8 @@ const NotificationSettings = () => {
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">Bildirim Ayarları</h3>
       
       <div className="space-y-6">
+
+        {/* E-posta Bildirimleri */}
         <div>
           <h4 className="text-md font-semibold text-gray-900 dark:text-white mb-4">E-posta Bildirimleri</h4>
           <div className="space-y-4">
@@ -79,9 +83,9 @@ const NotificationSettings = () => {
           </div>
         </div>
 
-
         <hr className="my-6 border-gray-200 dark:border-zinc-700" />
         
+        {/* Push Bildirimleri */}
         <div>
           <h4 className="text-md font-semibold text-gray-900 dark:text-white mb-4">Push Bildirimleri</h4>
           <div className="space-y-4">

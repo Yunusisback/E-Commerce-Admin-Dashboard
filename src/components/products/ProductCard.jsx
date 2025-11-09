@@ -1,11 +1,10 @@
 import { Edit, Trash2, TrendingUp } from 'lucide-react';
 import { formatCurrency, formatNumber } from '../../utils/helpers';
 
-
-
+// Ürün kartı bileşeni
 const ProductCard = ({ product, onEdit, onDelete }) => {
   
-  // 1.  Boş fonksiyon 'product.status'u kullanacak şekilde dolduruldu
+  // Stok durumuna göre sınıf belirler
   const getStockStatus = () => {
     if (product.status === 'out-of-stock') {
       return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
@@ -16,7 +15,7 @@ const ProductCard = ({ product, onEdit, onDelete }) => {
     return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
   };
 
-  // 2.  Boş fonksiyon 'product.status'u kullanacak şekilde dolduruldu
+  // Stok durumuna göre metin belirler
   const getStockText = () => {
     if (product.status === 'out-of-stock') return 'Stokta Yok';
     if (product.status === 'low-stock') return 'Az Stok';

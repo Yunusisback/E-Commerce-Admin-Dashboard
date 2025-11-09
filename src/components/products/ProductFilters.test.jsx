@@ -1,75 +1,61 @@
-
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
 import { productCategories } from '../../data/mockData'; 
 import ProductFilters from './ProductFilters';
 
-
-
-
+// 'mockData'dan gelen 'productCategories' verisini taklit et
 vi.mock('../../data/mockData', () => ({
-  productCategories: [
-    { value: 'all', label: 'Tüm Kategoriler' },
-    { value: 'Elektronik', label: 'Elektronik' },
-    { value: 'Spor', label: 'Spor' },
-  ]
+  productCategories: [
+    { value: 'all', label: 'Tüm Kategoriler' },
+    { value: 'Elektronik', label: 'Elektronik' },
+    { value: 'Spor', label: 'Spor' },
+  ]
 }));
 
 describe('ProductFilters Bileşeni', () => {
 
-  // Testlerde 'userEvent' (kullanıcı simülasyonu) kullanmak için kurulum
-  const setupUser = () => userEvent.setup();
+  const setupUser = () => userEvent.setup();
 
-  // 1. Gerekli Kısım: Arama çubuğu (input) etkileşimi
-  it('arama çubuğuna yazıldığında "onSearch" prop\'unu doğru değerle çağırmalı', async () => {
-    const user = setupUser();
-    const mockOnSearch = vi.fn(); // 'onSearch' için sahte fonksiyon
-    
-    render(<ProductFilters onSearch={mockOnSearch} onCategoryFilter={() => {}} />);
+  it('arama çubuğuna yazıldığında "onSearch" prop\'unu doğru değerle çağırmalı', async () => {
+    const user = setupUser();
+    // 'onSearch' prop'unun çağrıldığını izlemek için sahte fonksiyon
+    const mockOnSearch = vi.fn(); 
+    
+    render(<ProductFilters onSearch={mockOnSearch} onCategoryFilter={() => {}} />);
 
-    // Arama çubuğunu placeholder metni ile bul
-    const searchInput = screen.getByPlaceholderText(/Ürün ara.../i);
+    const searchInput = screen.getByPlaceholderText(/Ürün ara.../i);
+    await user.type(searchInput, 'Laptop');
 
-    // Arama çubuğuna "Laptop" yaz
-    await user.type(searchInput, 'Laptop');
+    // 'user.type' harf harf yazar, bu yüzden son çağrıyı kontrol ediyoruz
+    expect(mockOnSearch).toHaveBeenLastCalledWith('Laptop');
+    expect(mockOnSearch).toHaveBeenCalledTimes(6); // 'Laptop' 6 karakterdir
+  });
 
-    // Beklenti: 'onSearch' fonksiyonu en son "Laptop" değeriyle çağrılmalı
-    expect(mockOnSearch).toHaveBeenLastCalledWith('Laptop');
-    expect(mockOnSearch).toHaveBeenCalledTimes(6); // 'Laptop' 6 karakterdir
-  });
+  it('kategori filtresinden bir seçenek seçildiğinde "onCategoryFilter" prop\'unu doğru değerle çağırmalı', async () => {
+    const user = setupUser();
+    // 'onCategoryFilter' prop'unun çağrıldığını izlemek için sahte fonksiyon
+    const mockOnCategoryFilter = vi.fn(); 
 
-  // 2. Gerekli Kısım: Kategori filtresi (select) etkileşimi
-  it('kategori filtresinden bir seçenek seçildiğinde "onCategoryFilter" prop\'unu doğru değerle çağırmalı', async () => {
-    const user = setupUser();
-    const mockOnCategoryFilter = vi.fn(); // 'onCategoryFilter' için sahte fonksiyon
+    render(<ProductFilters onSearch={() => {}} onCategoryFilter={mockOnCategoryFilter} />);
 
-    render(<ProductFilters onSearch={() => {}} onCategoryFilter={mockOnCategoryFilter} />);
+    // HTML'deki <select> elementinin 'role'ü 'combobox'tur
+    const categorySelect = screen.getByRole('combobox');
 
-    // 'select' elementini (rolü 'combobox') bul
-    const categorySelect = screen.getByRole('combobox');
+    // 'Elektronik' seçeneğini seç (bu veri mock'tan geliyor)
+    await user.selectOptions(categorySelect, 'Elektronik');
 
-    // 'select' elementinden "Elektronik" seçeneğini seç
-    // (Bu veri mock'ladığımız 'productCategories'den geliyor)
-    await user.selectOptions(categorySelect, 'Elektronik');
+    // 'Elektronik' değeriyle üst bileşenin 1 kez bilgilendirildiğini doğrula
+    expect(mockOnCategoryFilter).toHaveBeenCalledOnce();
+    expect(mockOnCategoryFilter).toHaveBeenCalledWith('Elektronik');
+  });
 
-    // Beklenti: 'mockOnCategoryFilter' 1 kez çağrılmalı
-    expect(mockOnCategoryFilter).toHaveBeenCalledOnce();
-    // Beklenti: 'mockOnCategoryFilter' "Elektronik" değeriyle çağrılmalı
-    expect(mockOnCategoryFilter).toHaveBeenCalledWith('Elektronik');
-  });
+  it('"Yeni Ürün" düğmesini ve filtreleri doğru render etmeli', () => {
+    render(<ProductFilters onSearch={() => {}} onCategoryFilter={() => {}} />);
 
-  // 3. Render Testi (Basit)
-  it('"Yeni Ürün" düğmesini ve filtreleri doğru render etmeli', () => {
-    render(<ProductFilters onSearch={() => {}} onCategoryFilter={() => {}} />);
-
-    // "Yeni Ürün" düğmesi ekranda mı? (Önemli)
-    expect(screen.getByRole('button', { name: /Yeni Ürün/i })).toBeInTheDocument();
-    
-    // Arama çubuğu ekranda mı?
-    expect(screen.getByPlaceholderText(/Ürün ara.../i)).toBeInTheDocument();
-    
-    // Kategori filtresi ekranda mı?
-    expect(screen.getByRole('combobox')).toBeInTheDocument();
-  });
+    // Tüm ana elemanların ekranda olduğunu doğrula
+    expect(screen.getByRole('button', { name: /Yeni Ürün/i })).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Ürün ara.../i)).toBeInTheDocument();
+    expect(screen.getByRole('combobox')).toBeInTheDocument();
+  });
 });

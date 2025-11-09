@@ -1,32 +1,36 @@
-
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useApp } from '../context/AppContext'; 
 import ProductsGrid from '../components/products/ProductsGrid';
 import ProductFilters from '../components/products/ProductFilters';
-import { allProducts as initialProducts } from '../data/mockData';
+import { allProducts as initialProducts } from '../data/mockData'; 
 import EditProductModal from '../components/products/EditProductModal'; 
+import ConfirmationModal from '../components/common/ConfirmationModal';
+import AddProductModal from '../components/products/AddProductModal'; 
 
-/**
- * "Ürünler" sayfasının ana konteyner (wrapper) bileşenidir.
- * Silme ve Düzenleme mantığını yönetir.
- */
 
 const Products = () => {
-  // 3. Ana ürün listesini 'state'e alıyoruz ki SİLEBİLELİM
+  const { setPageTitle } = useApp();
+
+  useEffect(() => {
+    setPageTitle('Ürünler'); 
+  }, [setPageTitle]);
+
+  // Ürün verileri
   const [allProducts, setAllProducts] = useState(initialProducts);
-  
-  // 4. Filtrelenmiş liste, artık 'allProducts' state'inden türetiliyor
   const [filteredProducts, setFilteredProducts] = useState(allProducts);
-
-  // 5. Modal (Düzenleme formu) için gerekli state'ler
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingProduct, setEditingProduct] = useState(null); // Hangi ürünün düzenlendiğini tutar
-
   
+  // Düzenleme modalı durumu
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingProduct, setEditingProduct] = useState(null); 
 
-  // Artık 'initialProducts' (sabit veri) yerine, 'allProducts' (değişebilen state) 
-  // üzerinden filtreleme yapılıyor
-  
+  // Silme modalı durumu
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [productToDelete, setProductToDelete] = useState(null); 
+
+  // Yeni ürün modalı durumu
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  // Arama filtreleme
   const handleSearch = (searchTerm) => {
     const filtered = allProducts.filter(product => 
       product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -35,74 +39,78 @@ const Products = () => {
     setFilteredProducts(filtered);
   };
 
+  // Kategori filtreleme
   const handleCategoryFilter = (category) => {
     if (category === 'all') {
-      setFilteredProducts(allProducts); // Filtreyi temizle
+      setFilteredProducts(allProducts); 
     } else {
       const filtered = allProducts.filter(product => product.category === category);
       setFilteredProducts(filtered);
     }
   };
 
-
-
-  /**
-   * "Sil" düğmesi tıklandığında çalışır.
-   * Bu fonksiyon ProductsGrid -> ProductCard'a prop olarak iletilir.
-   */
-
-  const handleDelete = (productId) => {
-    // Kullanıcıya onaylatmak her zaman iyidir
-    if (window.confirm("Bu ürünü silmek istediğinizden emin misiniz?")) {
-      
-      // Hem ana listeyi (allProducts) hem de filtrelenmiş listeyi (filteredProducts) güncelle
-      const updatedProducts = allProducts.filter(p => p.id !== productId);
-      setAllProducts(updatedProducts);
-      
-      const updatedFilteredProducts = filteredProducts.filter(p => p.id !== productId);
-      setFilteredProducts(updatedFilteredProducts);
-      
-      console.log("Ürün silindi:", productId);
-      // TODO: API'ye silme isteği gönder
+  // Silme işlemleri
+  const handleOpenDeleteModal = (productId) => {
+    const product = allProducts.find(p => p.id === productId);
+    if (product) {
+      setProductToDelete(product);
+      setIsDeleteModalOpen(true); 
     }
   };
 
-  /**
-   * "Düzenle" düğmesi tıklandığında çalışır
-   * Bu fonksiyon ProductsGrid -> ProductCard'a prop olarak iletilir
-   */
-  const handleOpenEditModal = (product) => {
-    setEditingProduct(product); // Hangi ürünün düzenleneceğini state'e ata
-    setIsModalOpen(true);     // Modalı aç
+  const handleConfirmDelete = () => {
+    if (!productToDelete) return; 
+    const updatedProducts = allProducts.filter(p => p.id !== productToDelete.id);
+    setAllProducts(updatedProducts);
+    const updatedFilteredProducts = filteredProducts.filter(p => p.id !== productToDelete.id);
+    setFilteredProducts(updatedFilteredProducts);
+    console.log("Ürün silindi:", productToDelete.id);
+    setIsDeleteModalOpen(false);
+    setProductToDelete(null);
   };
 
-  /**
-   * Modal'ın "Kaydet" düğmesi tıklandığında çalışır.
-   * Bu fonksiyon EditProductModal'a prop olarak iletilir
-   */
+  // Düzenleme işlemleri
+  const handleOpenEditModal = (product) => {
+    setEditingProduct(product); 
+    setIsEditModalOpen(true);     
+  };
+
   const handleSaveEdit = (updatedProduct) => {
-    // 'allProducts' state'indeki eski ürünü yenisiyle değiştir
     const updatedList = allProducts.map(p => 
       p.id === updatedProduct.id ? updatedProduct : p
     );
     setAllProducts(updatedList);
-    
-    // 'filteredProducts' state'ini de güncelle
     const updatedFilteredList = filteredProducts.map(p =>
       p.id === updatedProduct.id ? updatedProduct : p
     );
     setFilteredProducts(updatedFilteredList);
-
     console.log("Ürün güncellendi:", updatedProduct);
-    // TODO: API'ye güncelleme isteği gönder
   };
 
-  // Modalı kapatan basit fonksiyon
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleCloseEditModal = () => {
+    setIsEditModalOpen(false);
     setEditingProduct(null);
   };
 
+  // Yeni ürün ekleme
+  const handleOpenAddModal = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const handleSaveAdd = (newProductData) => {
+    const newProduct = {
+      ...newProductData,
+      id: `p${Date.now()}` // Benzersiz ID
+    };
+
+    const updatedList = [newProduct, ...allProducts];
+    setAllProducts(updatedList);
+    
+    const updatedFilteredList = [newProduct, ...filteredProducts];
+    setFilteredProducts(updatedFilteredList);
+
+    console.log("Yeni ürün eklendi:", newProduct);
+  };
 
   return (
     <div className="space-y-6">
@@ -115,24 +123,49 @@ const Products = () => {
         </div>
       </div>
 
-      <ProductFilters onSearch={handleSearch} onCategoryFilter={handleCategoryFilter} />
+      {/* Filtreleme ve yeni ürün butonu */}
+      <ProductFilters 
+        onSearch={handleSearch} 
+        onCategoryFilter={handleCategoryFilter}
+        onAddProductClick={handleOpenAddModal} 
+      />
       
-      {/* 7. ADIM: ProductsGrid'e yeni fonksiyonları (prop) ilet */}
+      {/* Ürünler grid */}
       <ProductsGrid 
         products={filteredProducts} 
         onEdit={handleOpenEditModal} 
-        onDelete={handleDelete} 
+        onDelete={handleOpenDeleteModal}
       />
 
-      {/* 8. ADIM: Modalı render et (ama sadece düzenlenecek ürün seçiliyse) */}
+      {/* Düzenleme modalı */}
       {editingProduct && (
         <EditProductModal
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
+          isOpen={isEditModalOpen}
+          onClose={handleCloseEditModal}
           product={editingProduct}
           onSave={handleSaveEdit}
         />
       )}
+
+      {/* Silme onay modalı */}
+      {productToDelete && (
+        <ConfirmationModal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          onConfirm={handleConfirmDelete}
+          title="Ürünü Sil"
+          message={`'${productToDelete.name}' adlı ürünü kalıcı olarak silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.`}
+          confirmText="Sil"
+          cancelText="İptal"
+        />
+      )}
+      
+      {/* Yeni ürün ekleme modalı */}
+      <AddProductModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSave={handleSaveAdd}
+      />
     </div>
   );
 };

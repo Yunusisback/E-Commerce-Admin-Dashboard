@@ -5,9 +5,8 @@ import { formatNumber } from '../../utils/helpers';
 
 const CustomerStats = ({ stats }) => {
   
-  // Gelen stats propunu (örn: stats.total) UI da gösterilecek etiket ikon ve renklerle
-  // eşleştiren sabit (static) bir yapılandırma dizisi
 
+// İstatistik öğeleri dizisi
   const statItems = [
     { 
       label: 'Toplam Müşteri', 

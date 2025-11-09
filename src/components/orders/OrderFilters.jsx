@@ -1,14 +1,16 @@
 import { Search, Filter } from 'lucide-react';
 import { useState } from 'react';
 
-
-
-
+// Sipariş filtreleri bileşeni
 const OrderFilters = ({ onSearch, onStatusFilter }) => {
+
+  // Arama terimi durumu
   const [searchTerm, setSearchTerm] = useState('');
-  //  State 'obje'den 'string'e geri döndü
+  
+  // Seçili durum filtresi
   const [selectedStatus, setSelectedStatus] = useState('all'); 
 
+  // Durum seçenekleri
   const statuses = [
     { value: 'all', label: 'Tümü' },
     { value: 'Teslim Edildi', label: 'Teslim Edildi' },
@@ -17,12 +19,13 @@ const OrderFilters = ({ onSearch, onStatusFilter }) => {
     { value: 'İptal', label: 'İptal' }
   ];
 
+  // Arama işleyicisi
   const handleSearch = (value) => {
     setSearchTerm(value);
     if (onSearch) onSearch(value);
   };
 
-  // 'e.target.value' (string) alıyor
+  // Durum değişikliği işleyicisi
   const handleStatusChange = (e) => {
     const newStatus = e.target.value;
     setSelectedStatus(newStatus);
@@ -32,7 +35,7 @@ const OrderFilters = ({ onSearch, onStatusFilter }) => {
   return (
     <div className="flex flex-col md:flex-row gap-4">
 
-      {/* Arama Çubuğu */}
+      {/* Arama çubuğu */}
       <div className="relative flex-1">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
         <input
@@ -44,8 +47,7 @@ const OrderFilters = ({ onSearch, onStatusFilter }) => {
         />
       </div>
       
-      {/* Durum Filtresi (Basit <select>) */}
-      
+      {/* Durum filtresi */}
       <div className="flex items-center gap-2">
         <Filter className="w-5 h-5 text-gray-400" />
         <select

@@ -1,7 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 
 
-
 const AppContext = createContext();
 
 export const useApp = () => {
@@ -12,15 +11,23 @@ export const useApp = () => {
   return context;
 };
 
+// AppProvider bileşeni Sağlayıcı
 export const AppProvider = ({ children }) => {
-  const [activePage, setActivePage] = useState('dashboard');
+
+  // Sayfa başlığı durumu
+  const [pageTitle, setPageTitle] = useState('Dashboard'); 
+  
+  // Kullanıcı bilgisi durumu
   const [user, setUser] = useState({
     name: 'Admin User',
     email: 'admin@ecommerce.com',
   });
 
   return (
-    <AppContext.Provider value={{ activePage, setActivePage, user, setUser }}>
+    <AppContext.Provider value={{ 
+      user, setUser, 
+      pageTitle, setPageTitle 
+    }}>
       {children}
     </AppContext.Provider>
   );
