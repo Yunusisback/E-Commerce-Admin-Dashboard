@@ -5,15 +5,18 @@ import {
   getStatusColor 
 } from './helpers';
 
+
+
+// formatCurrency Testi
 describe('formatCurrency', () => {
   it('sayıyı Türk Lirası (₺) formatına kuruşsuz çevirmeli', () => {
-    // 'Intl' kütüphanesi boşluk karakteri ekleyebilir, bu yüzden regex kullanıyoruz
     expect(formatCurrency(10000)).toMatch(/₺10.000/);
     expect(formatCurrency(1500)).toMatch(/₺1.500/);
     expect(formatCurrency(0)).toMatch(/₺0/);
   });
 });
 
+// formatNumber Testi
 describe('formatNumber', () => {
   it('sayıyı Türk (tr-TR) lokaline göre binlik ayraçla formatlamalı', () => {
     expect(formatNumber(1250)).toMatch(/1.250/);
@@ -21,26 +24,42 @@ describe('formatNumber', () => {
   });
 });
 
+// getStatusColor Testi
 describe('getStatusColor', () => {
-  it('"Teslim Edildi" için yeşil (green) CSS sınıflarını döndürmeli', () => {
+  it('"Teslim Edildi" için zümrüt (emerald) CSS sınıflarını döndürmeli', () => {
     const statusClass = getStatusColor('Teslim Edildi');
-    expect(statusClass).toContain('green');
-    expect(statusClass).not.toContain('red');
+    
+    //  'green' yerine 'emerald' arıyoruz
+    expect(statusClass).toContain('emerald');
+    expect(statusClass).not.toContain('rose');
   });
 
-  it('"İptal" için kırmızı (red) CSS sınıflarını döndürmeli', () => {
+  it('"İptal" için gül (rose) CSS sınıflarını döndürmeli', () => {
     const statusClass = getStatusColor('İptal');
-    expect(statusClass).toContain('red');
-    expect(statusClass).not.toContain('green');
+    
+    //  'red' yerine 'rose' arıyoruz
+    expect(statusClass).toContain('rose');
+    expect(statusClass).not.toContain('emerald');
   });
 
-  it('"Kargoda" için mavi (blue) CSS sınıflarını döndürmeli', () => {
+  it('"Kargoda" için viyola (violet) CSS sınıflarını döndürmeli', () => {
     const statusClass = getStatusColor('Kargoda');
-    expect(statusClass).toContain('blue');
+    
+    //  'blue' yerine 'violet' arıyoruz
+    expect(statusClass).toContain('violet');
   });
 
-  it('Bilinmeyen bir durum için varsayılan (gri/gray) sınıfı döndürmeli', () => {
+  it('"Hazırlanıyor" için kehribar (amber) CSS sınıflarını döndürmeli', () => {
+    const statusClass = getStatusColor('Hazırlanıyor');
+    
+    //  'yellow' yerine 'amber' arıyoruz
+    expect(statusClass).toContain('amber');
+  });
+
+  it('Bilinmeyen bir durum için varsayılan (çinko/zinc) sınıfı döndürmeli', () => {
     const statusClass = getStatusColor('BilinmeyenDurum');
-    expect(statusClass).toContain('gray');
+    
+    //  'gray' yerine 'zinc (koyu tema) arıyoruz
+    expect(statusClass).toContain('zinc');
   });
 });

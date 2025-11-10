@@ -8,6 +8,7 @@ const labelStyle = "text-sm font-medium text-gray-700 dark:text-gray-300";
 
 // Ürün düzenleme modalı bileşeni
 const EditProductModal = ({ isOpen, onClose, product, onSave }) => {
+  
   // Form verisi durumu
   const [formData, setFormData] = useState({
     name: '',

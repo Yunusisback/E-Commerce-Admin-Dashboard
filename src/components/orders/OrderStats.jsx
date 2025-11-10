@@ -8,6 +8,8 @@ const OrderStats = ({ stats }) => {
     { label: 'Kargoda', value: stats.shipped, icon: Truck, color: 'text-purple-600 bg-purple-100 dark:bg-purple-900' },
     { label: 'Teslim Edildi', value: stats.delivered, icon: CheckCircle, color: 'text-green-600 bg-green-100 dark:bg-green-900' },
     { label: 'İptal', value: stats.cancelled, icon: XCircle, color: 'text-red-600 bg-red-100 dark:bg-red-900' }
+
+
   ];
 
   return (

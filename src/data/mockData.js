@@ -63,13 +63,15 @@ export const mockData = {
 
   // Son siparişler
   recentOrders: [
-    { id: '#ORD-2401', customer: 'Ahmet Yılmaz', product: 'iPhone 15 Pro', amount: 31000, status: 'Teslim Edildi', date: '30 Eki 2024' },
-    { id: '#ORD-2402', customer: 'Ayşe Demir', product: 'Samsung Galaxy S24', amount: 28000, status: 'Kargoda', date: '30 Eki 2024' },
-    { id: '#ORD-2403', customer: 'Mehmet Kaya', product: 'AirPods Pro', amount: 7500, status: 'Hazırlanıyor', date: '29 Eki 2024' },
-    { id: '#ORD-2404', customer: 'Fatma Şahin', product: 'MacBook Air M3', amount: 45000, status: 'Teslim Edildi', date: '29 Eki 2024' },
-    { id: '#ORD-2405', customer: 'Ali Öztürk', product: 'Apple Watch Series 9', amount: 12000, status: 'Kargoda', date: '28 Eki 2024' },
-    { id: '#ORD-2406', customer: 'Zeynep Çelik', product: 'iPad Air', amount: 18500, status: 'Teslim Edildi', date: '28 Eki 2024' },
-    { id: '#ORD-2407', customer: 'Can Arslan', product: 'Sony WH-1000XM5', amount: 9800, status: 'Hazırlanıyor', date: '27 Eki 2024' }
+    { id: '#ORD-2401', customer: 'Ahmet Yılmaz', product: 'iPhone 15 Pro', amount: 31000, status: 'Teslim Edildi', date: '10 Eki 2025' },
+    { id: '#ORD-2402', customer: 'Ayşe Demir', product: 'Samsung Galaxy S24', amount: 28000, status: 'Kargoda', date: '30 Eki 2025' },
+    { id: '#ORD-2403', customer: 'Mehmet Kaya', product: 'AirPods Pro', amount: 7500, status: 'Hazırlanıyor', date: '19 Eki 2025' },
+    { id: '#ORD-2404', customer: 'Fatma Şahin', product: 'MacBook Air M3', amount: 45000, status: 'Teslim Edildi', date: '29 Eki 2025' },
+    { id: '#ORD-2405', customer: 'Ali Öztürk', product: 'Apple Watch Series 9', amount: 12000, status: 'Kargoda', date: '18 Eki 2025' },
+    { id: '#ORD-2406', customer: 'Zeynep Çelik', product: 'iPad Air', amount: 18500, status: 'Teslim Edildi', date: '18 Eki 2025' },
+    { id: '#ORD-2407', customer: 'Can Arslan', product: 'Sony WH-1000XM5', amount: 9800, status: 'Hazırlanıyor', date: '9 Eki 2025' },
+    { id: '#ORD-2407', customer: 'Can Arslan', product: 'Dyson V15', amount: 9800, status: 'İptal', date: '20 Eki 2025' },
+    { id: '#ORD-2407', customer: 'Can Arslan', product: 'Dyson V15', amount: 9800, status: 'İade', date: '20 Eki 2025' }
   ]
 };
 
@@ -78,7 +80,7 @@ export const allOrders = [
   { id: '#ORD-2401', customer: 'Ahmet Yılmaz', product: 'iPhone 16 Pro', amount: 31000, status: 'Teslim Edildi', date: '30 Eki 2024', email: 'ahmet@email.com' },
   { id: '#ORD-2402', customer: 'Ayşe Demir', product: 'Samsung Galaxy S25', amount: 28000, status: 'Kargoda', date: '30 Eki 2024', email: 'ayse@email.com' },
   { id: '#ORD-2403', customer: 'Mehmet Kaya', product: 'AirPods Pro', amount: 7500, status: 'Hazırlanıyor', date: '29 Eki 2024', email: 'mehmet@email.com' },
-  { id: '#ORD-2404', customer: 'Fatma Şahin', product: 'MacBook Air M3', amount: 45000, status: 'Teslim Edildi', date: '29 Eki 2024', email: 'fatma@email.com' },
+  { id: '#ORD-2404', customer: 'Elif Demir', product: 'MacBook Air M3', amount: 45000, status: 'Teslim Edildi', date: '29 Eki 2024', email: 'elif@email.com' },
   { id: '#ORD-2405', customer: 'Ali Öztürk', product: 'Apple Watch Series 9', amount: 12000, status: 'Kargoda', date: '28 Eki 2024', email: 'ali@email.com' },
   { id: '#ORD-2406', customer: 'Zeynep Çelik', product: 'iPad Air', amount: 18500, status: 'Teslim Edildi', date: '28 Eki 2024', email: 'zeynep@email.com' },
   { id: '#ORD-2407', customer: 'Can Arslan', product: 'Sony WH-1000XM5', amount: 9800, status: 'Hazırlanıyor', date: '27 Eki 2024', email: 'can@email.com' },
@@ -87,6 +89,7 @@ export const allOrders = [
   { id: '#ORD-2410', customer: 'Selin Korkmaz', product: 'Dyson V15', amount: 15000, status: 'Hazırlanıyor', date: '26 Eki 2024', email: 'selin@email.com' },
   { id: '#ORD-2411', customer: 'Kaan Özkan', product: 'PlayStation 5', amount: 18000, status: 'Teslim Edildi', date: '25 Eki 2024', email: 'kaan@email.com' },
   { id: '#ORD-2412', customer: 'Deniz Aksoy', product: 'Nintendo Switch', amount: 9500, status: 'İptal', date: '25 Eki 2024', email: 'deniz@email.com' },
+  { id: '#ORD-2412', customer: 'Deniz Aksoy', product: 'Nintendo Switch', amount: 9500, status: 'İade', date: '25 Eki 2024', email: 'deniz@email.com' },
 ];
 
 // Sipariş istatistikleri
@@ -140,10 +143,19 @@ export const allCustomers = [
   { id: 'CUST-001', name: 'Ahmet Yılmaz', email: 'ahmet@email.com', phone: '0555 123 4567', totalSpent: 15400, orderCount: 5, status: 'active', avatar: 'https://i.pravatar.cc/150?img=12' },
   { id: 'CUST-002', name: 'Ayşe Demir', email: 'ayse@email.com', phone: '0555 234 5678', totalSpent: 8200, orderCount: 3, status: 'active', avatar: 'https://i.pravatar.cc/150?img=32' },
   { id: 'CUST-003', name: 'Mehmet Kaya', email: 'mehmet@email.com', phone: '0555 345 6789', totalSpent: 23000, orderCount: 8, status: 'active', avatar: 'https://i.pravatar.cc/150?img=17' },
-  { id: 'CUST-004', name: 'Fatma Şahin', email: 'fatma@email.com', phone: '0555 456 7890', totalSpent: 5100, orderCount: 2, status: 'inactive', avatar: 'https://i.pravatar.cc/150?img=19' },
-  { id: 'CUST-005', name: 'Ali Öztürk', email: 'ali@email.com', phone: '0555 567 8901', totalSpent: 3000, orderCount: 1, status: 'banned', avatar: 'https://i.pravatar.cc/150?img=56' }
+  { id: 'CUST-004', name: 'Elif Demir', email: 'elif@email.com', phone: '0555 456 7890', totalSpent: 5100, orderCount: 2, status: 'inactive', avatar: 'https://i.pravatar.cc/150?img=19' },
+  { id: 'CUST-005', name: 'Ali Öztürk', email: 'ali@email.com', phone: '0555 567 8901', totalSpent: 3000, orderCount: 5, status: 'banned', avatar: 'https://i.pravatar.cc/150?img=56' },
+  { id: 'CUST-006', name: 'Fatma Şahin', email: 'fatma@email.com', phone: '0555 678 9012', totalSpent: 18750, orderCount: 6, status: 'active', avatar: 'https://i.pravatar.cc/150?img=21' },
+  { id: 'CUST-007', name: 'Hasan Çelik', email: 'hasan@email.com', phone: '0555 789 0123', totalSpent: 4200, orderCount: 2, status: 'inactive', avatar: 'https://i.pravatar.cc/150?img=54' },
+  { id: 'CUST-008', name: 'Zeynep Arslan', email: 'zeynep@email.com', phone: '0555 890 1234', totalSpent: 31500, orderCount: 10, status: 'active', avatar: 'https://i.pravatar.cc/150?img=15' },
+  { id: 'CUST-009', name: 'Emre Polat', email: 'emre@email.com', phone: '0555 901 2345', totalSpent: 9800, orderCount: 4, status: 'active', avatar: 'https://i.pravatar.cc/300' },
+  { id: 'CUST-010', name: 'Seda Koç', email: 'seda@email.com', phone: '0555 012 3456', totalSpent: 5900, orderCount: 11, status: 'inactive', avatar: 'https://i.pravatar.cc/150?img=27' },
+  { id: 'CUST-011', name: 'Burak Aydın', email: 'burak@email.com', phone: '0555 123 5678', totalSpent: 27500, orderCount: 9, status: 'active', avatar: 'https://i.pravatar.cc/400?img=8' },
+  { id: 'CUST-012', name: 'Ceren Yıldız', email: 'ceren@email.com', phone: '0555 234 6789', totalSpent: 6400, orderCount: 3, status: 'active', avatar: 'https://i.pravatar.cc/150?img=23' },
+  { id: 'CUST-013', name: 'Deniz Erdem', email: 'deniz@email.com', phone: '0555 345 7890', totalSpent: 1200, orderCount: 3, status: 'inactive', avatar: 'https://i.pravatar.cc/150?img=35' },
+  { id: 'CUST-014', name: 'Eren Tekin', email: 'eren@email.com', phone: '0555 456 8901', totalSpent: 45000, orderCount: 15, status: 'active', avatar: 'https://i.pravatar.cc/400?img=3' },
+  { id: 'CUST-015', name: 'Gizem Bulut', email: 'gizem@email.com', phone: '0555 567 9012', totalSpent: 8900, orderCount: 4, status: 'banned', avatar: 'https://i.pravatar.cc/150?img=29' }
 ];
-
 // Analitik - Gelir Datası
 export const analyticsRevenueData = [
   { date: '01 Kas', revenue: 4500 },

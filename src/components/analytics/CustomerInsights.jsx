@@ -9,10 +9,10 @@ import { useTheme } from '../../hooks/useTheme';
 const CustomerInsights = ({ data }) => {
   const { theme } = useTheme();
 
-// Pasta grafik için renkler
+  // Pasta grafik için renkler 
   const COLORS = [
-    theme === 'light' ? '#10B981' : '#059669', 
-    theme === 'light' ? '#FBBF24' : '#f59e0b' 
+    '#8B5CF6', 
+    '#3B82F6'  
   ];
 
   return (
@@ -67,16 +67,39 @@ const CustomerInsights = ({ data }) => {
                 dataKey="value"
                 cx="50%"
                 cy="50%"
-                outerRadius={80}
-                label={({ percentage }) => `${percentage.toFixed(0)}%`} 
-                stroke="none"
+                outerRadius={85}
+                innerRadius={35}
+                label={({ percentage }) => `${percentage.toFixed(0)}%`}
+                labelLine={false}
+                paddingAngle={3}
+                stroke={theme === 'light' ? '#ffffff' : ''}
+                strokeWidth={2}
               >
                 {data.newVsReturning.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Cell 
+                    key={`cell-${index}`} 
+                    fill={COLORS[index % COLORS.length]}
+                    style={{ filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.1))' }}
+                  />
                 ))}
               </Pie>
-              <Tooltip formatter={(value) => `${value} müşteri`} />
-              <Legend />
+              <Tooltip 
+                formatter={(value) => `${value} müşteri`}
+                contentStyle={{
+                  backgroundColor: theme === 'light' ? '#ffffff' : '#3f3f46',
+                  border: 'none',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 6px rgba(0,0,0,0.3)',
+                  color: theme === 'light' ? '#000000' : '#ffffff'
+                }}
+                itemStyle={{
+                  color: theme === 'light' ? '#000000' : '#ffffff'
+                }}
+              />
+              <Legend 
+                iconType="circle"
+                wrapperStyle={{ paddingTop: '10px' }}
+              />
             </PieChart>
           </ResponsiveContainer>
         </div>

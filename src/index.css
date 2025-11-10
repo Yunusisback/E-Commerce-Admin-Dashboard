@@ -2,19 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   @apply bg-gray-50 dark:bg-zinc-900;
 }
 
-
 .recharts-wrapper *:focus {
   outline: none;
 }
 
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none; 
+    scrollbar-width: none;     
+  }
+}
