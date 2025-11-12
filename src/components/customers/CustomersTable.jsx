@@ -2,20 +2,7 @@ import { Eye, Edit, Trash2, EyeOff } from 'lucide-react';
 import Card from '../common/Card';
 import { formatCurrency, formatNumber } from '../../utils/helpers';
 import StatusEditPopover from './StatusEditPopover';
-
-
-const getStatusColor = (status) => {
-  switch (status) {
-    case 'active':
-      return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
-    case 'inactive':
-      return 'bg-gray-100 text-gray-800 dark:bg-zinc-700 dark:text-gray-300';
-    case 'banned':
-      return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
-    default:
-      return 'bg-gray-100 text-gray-800 dark:bg-zinc-700 dark:text-gray-300';
-  }
-};
+import { getStatusColor } from '../../utils/helpers'; 
 
 const CustomersTable = ({
   customers,
@@ -74,6 +61,7 @@ const CustomersTable = ({
                     {isHidden ? '**' : formatNumber(customer.orderCount)}
                   </td>
                   <td className="py-4 px-4">
+                    {/*getStatusColor fonksiyonunu kullanıyor */}
                     <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${getStatusColor(customer.status)}`}>
                       {customer.status === 'active' ? 'Aktif' : customer.status === 'inactive' ? 'Pasif' : 'Yasaklı'}
                     </span>

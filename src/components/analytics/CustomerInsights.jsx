@@ -68,12 +68,12 @@ const CustomerInsights = ({ data }) => {
                 cx="50%"
                 cy="50%"
                 outerRadius={85}
-                innerRadius={35}
+                innerRadius={45}
                 label={({ percentage }) => `${percentage.toFixed(0)}%`}
                 labelLine={false}
-                paddingAngle={3}
+                paddingAngle={1}
                 stroke={theme === 'light' ? '#ffffff' : ''}
-                strokeWidth={2}
+                strokeWidth={1}
               >
                 {data.newVsReturning.map((entry, index) => (
                   <Cell 

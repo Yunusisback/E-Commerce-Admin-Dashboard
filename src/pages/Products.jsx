@@ -1,55 +1,57 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useApp } from '../context/AppContext'; 
 import ProductsGrid from '../components/products/ProductsGrid';
-import ProductFilters from '../components/products/ProductFilters';
-import { allProducts as initialProducts } from '../data/mockData'; 
+import FilterBar from '../components/common/FilterBar'; 
+import { allProducts as initialProducts, productCategories } from '../data/mockData'; 
 import EditProductModal from '../components/products/EditProductModal'; 
 import ConfirmationModal from '../components/common/ConfirmationModal';
 import AddProductModal from '../components/products/AddProductModal'; 
-
+import { Plus } from 'lucide-react'; 
 
 const Products = () => {
   const { setPageTitle } = useApp();
-
   useEffect(() => {
     setPageTitle('Ürünler'); 
   }, [setPageTitle]);
 
-  // Ürün verileri
+ 
+
+  // 1. Ana veri 
   const [allProducts, setAllProducts] = useState(initialProducts);
-  const [filteredProducts, setFilteredProducts] = useState(allProducts);
   
-  // Düzenleme modalı durumu
+  // 2. Filtreleme stateleri
+  const [searchTerm, setSearchTerm] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('all');
+  
+  // 3. Modal stateleri 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null); 
-
-  // Silme modalı durumu
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null); 
-
-  // Yeni ürün modalı durumu
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
-  // Arama filtreleme
-  const handleSearch = (searchTerm) => {
-    const filtered = allProducts.filter(product => 
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredProducts(filtered);
-  };
+  
+  const filteredProducts = useMemo(() => {
+    let products = allProducts;
 
-  // Kategori filtreleme
-  const handleCategoryFilter = (category) => {
-    if (category === 'all') {
-      setFilteredProducts(allProducts); 
-    } else {
-      const filtered = allProducts.filter(product => product.category === category);
-      setFilteredProducts(filtered);
+    // Kategoriye göre filtrele
+    if (categoryFilter !== 'all') {
+      products = products.filter(product => product.category === categoryFilter);
     }
-  };
+    
+    // Arama terimine göre filtrele
+    if (searchTerm) {
+      const lowerSearch = searchTerm.toLowerCase();
+      products = products.filter(product => 
+        product.name.toLowerCase().includes(lowerSearch) ||
+        product.category.toLowerCase().includes(lowerSearch)
+      );
+    }
 
-  // Silme işlemleri
+    return products;
+  }, [allProducts, searchTerm, categoryFilter]); // Sadece bu 3 değer değiştiğinde yeniden hesaplanır
+
+
   const handleOpenDeleteModal = (productId) => {
     const product = allProducts.find(p => p.id === productId);
     if (product) {
@@ -60,39 +62,26 @@ const Products = () => {
 
   const handleConfirmDelete = () => {
     if (!productToDelete) return; 
-    const updatedProducts = allProducts.filter(p => p.id !== productToDelete.id);
-    setAllProducts(updatedProducts);
-    const updatedFilteredProducts = filteredProducts.filter(p => p.id !== productToDelete.id);
-    setFilteredProducts(updatedFilteredProducts);
-    console.log("Ürün silindi:", productToDelete.id);
+    setAllProducts(prevProducts => 
+      prevProducts.filter(p => p.id !== productToDelete.id)
+    );
     setIsDeleteModalOpen(false);
     setProductToDelete(null);
   };
 
-  // Düzenleme işlemleri
   const handleOpenEditModal = (product) => {
     setEditingProduct(product); 
     setIsEditModalOpen(true);     
   };
 
   const handleSaveEdit = (updatedProduct) => {
-    const updatedList = allProducts.map(p => 
-      p.id === updatedProduct.id ? updatedProduct : p
+    setAllProducts(prevProducts => 
+      prevProducts.map(p => p.id === updatedProduct.id ? updatedProduct : p)
     );
-    setAllProducts(updatedList);
-    const updatedFilteredList = filteredProducts.map(p =>
-      p.id === updatedProduct.id ? updatedProduct : p
-    );
-    setFilteredProducts(updatedFilteredList);
-    console.log("Ürün güncellendi:", updatedProduct);
-  };
-
-  const handleCloseEditModal = () => {
     setIsEditModalOpen(false);
     setEditingProduct(null);
   };
 
-  // Yeni ürün ekleme
   const handleOpenAddModal = () => {
     setIsAddModalOpen(true);
   };
@@ -102,14 +91,13 @@ const Products = () => {
       ...newProductData,
       id: `p${Date.now()}` // Benzersiz ID
     };
-
-    const updatedList = [newProduct, ...allProducts];
-    setAllProducts(updatedList);
-    
-    const updatedFilteredList = [newProduct, ...filteredProducts];
-    setFilteredProducts(updatedFilteredList);
-
-    console.log("Yeni ürün eklendi:", newProduct);
+    setAllProducts(prevProducts => [newProduct, ...prevProducts]);
+    setIsAddModalOpen(false);
+  };
+  
+  const handleCloseEditModal = () => {
+    setIsEditModalOpen(false);
+    setEditingProduct(null);
   };
 
   return (
@@ -123,14 +111,26 @@ const Products = () => {
         </div>
       </div>
 
-      {/* Filtreleme ve yeni ürün butonu */}
-      <ProductFilters 
-        onSearch={handleSearch} 
-        onCategoryFilter={handleCategoryFilter}
-        onAddProductClick={handleOpenAddModal} 
-      />
+      {/* Filtreleme ve yeni ürün butonu  */}
+      <FilterBar
+        searchPlaceholder="Ürün ara..."
+        searchTerm={searchTerm}
+        onSearchChange={setSearchTerm}
+        filterValue={categoryFilter}
+        onFilterChange={setCategoryFilter}
+        filterOptions={productCategories}
+      >
+        {/* children propu olarak Yeni Ürün butonu  */}
+        <button 
+          onClick={handleOpenAddModal} 
+          className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-amber-600 dark:hover:bg-amber-700 text-white rounded-lg transition-colors"
+        >
+          <Plus className="w-5 h-5" />
+          <span className="font-medium">Yeni Ürün</span>
+        </button>
+      </FilterBar>
       
-      {/* Ürünler grid */}
+      {/* Ürünler grid  */}
       <ProductsGrid 
         products={filteredProducts} 
         onEdit={handleOpenEditModal} 

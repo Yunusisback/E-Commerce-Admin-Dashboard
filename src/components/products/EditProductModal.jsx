@@ -2,14 +2,11 @@ import { useState, useEffect, Fragment } from 'react';
 import { Transition, Dialog } from '@headlessui/react';
 import Button from '../common/Button';
 
-
-const inputStyle = "w-full mt-1 px-4 py-2 bg-white dark:bg-zinc-700 border border-gray-200 dark:border-zinc-600 rounded-lg text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-amber-500";
+const inputStyle = "w-full mt-1 px-4 py-2 bg-white dark:bg-zinc-700 border border-gray-200 dark:border-zinc-600 rounded-lg text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-amber-500 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none";
 const labelStyle = "text-sm font-medium text-gray-700 dark:text-gray-300";
 
-// Ürün düzenleme modalı bileşeni
+
 const EditProductModal = ({ isOpen, onClose, product, onSave }) => {
-  
-  // Form verisi durumu
   const [formData, setFormData] = useState({
     name: '',
     category: '',
@@ -17,32 +14,29 @@ const EditProductModal = ({ isOpen, onClose, product, onSave }) => {
     stock: 0,
   });
 
-  // Ürün prop'u değiştiğinde formu güncelle
   useEffect(() => {
     if (product) {
       setFormData({
-        name: product.name,
-        category: product.category,
-        price: product.price,
-        stock: product.stock,
+        name: product.name || '',
+        category: product.category || '',
+        price: product.price || 0,
+        stock: product.stock || 0,
       });
     }
   }, [product]);
 
-  // Form değişikliği işleyicisi
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const newValue = (name === 'price' || name === 'stock') ? parseFloat(value) : value;
+    const newValue = (name === 'price' || name === 'stock') ? parseFloat(value) || 0 : value;
     setFormData(prev => ({ ...prev, [name]: newValue }));
   };
 
-  // Form gönderme işleyicisi
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave({ ...product, ...formData });
-    onClose(); 
+    onClose();
   };
-
+ 
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={onClose}>
@@ -69,15 +63,11 @@ const EditProductModal = ({ isOpen, onClose, product, onSave }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-  
               <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-800 p-6 text-left align-middle shadow-xl transition-all">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900 dark:text-white"
-                >
+                <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900 dark:text-white">
                   Ürünü Düzenle: {product?.name}
                 </Dialog.Title>
-                
+
                 <form onSubmit={handleSubmit} className="mt-4 space-y-4">
                   <div>
                     <label htmlFor="name" className={labelStyle}>Ürün Adı</label>
@@ -87,10 +77,11 @@ const EditProductModal = ({ isOpen, onClose, product, onSave }) => {
                       id="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className={inputStyle} 
+                      className={inputStyle}
+                      required
                     />
                   </div>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <label htmlFor="category" className={labelStyle}>Kategori</label>
@@ -100,9 +91,10 @@ const EditProductModal = ({ isOpen, onClose, product, onSave }) => {
                         id="category"
                         value={formData.category}
                         onChange={handleChange}
-                        className={inputStyle} 
+                        className={inputStyle}
                       />
                     </div>
+
                     <div>
                       <label htmlFor="price" className={labelStyle}>Fiyat (₺)</label>
                       <input
@@ -111,9 +103,12 @@ const EditProductModal = ({ isOpen, onClose, product, onSave }) => {
                         id="price"
                         value={formData.price}
                         onChange={handleChange}
-                        className={inputStyle} 
+                        className={inputStyle}
+                        step="0.01"
+                        min="0"
                       />
                     </div>
+
                     <div>
                       <label htmlFor="stock" className={labelStyle}>Stok</label>
                       <input
@@ -122,14 +117,13 @@ const EditProductModal = ({ isOpen, onClose, product, onSave }) => {
                         id="stock"
                         value={formData.stock}
                         onChange={handleChange}
-                        className={inputStyle} 
+                        className={inputStyle}
+                        min="0"
                       />
                     </div>
                   </div>
 
-                  {/* Form butonları */}
                   <div className="mt-6 flex justify-end gap-3">
-                
                     <Button type="button" variant="secondary" onClick={onClose}>
                       İptal
                     </Button>
