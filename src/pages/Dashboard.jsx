@@ -18,14 +18,14 @@ const Dashboard = () => {
     setPageTitle('Dashboard'); 
   }, [setPageTitle]);
 
-// Filtre state'i
+// Filtre statei
   const [filter, setFilter] = useState('30d'); 
   
   const [kpiStats, setKpiStats] = useState(mockData.kpis);
   const [salesTrend, setSalesTrend] = useState(mockData.salesTrend);
   const [categoryData, setCategoryData] = useState(mockData.categoryData);
 
-  // Bu fonksiyon DateFilter'dan çağrılır
+  // Bu fonksiyon DateFilterdan çağrılır
   const handleFilterChange = (newFilter) => {
     console.log('Seçilen filtre:', newFilter);
     setFilter(newFilter); 

@@ -104,7 +104,6 @@ const Products = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Ürünler</h2>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             Toplam {filteredProducts.length} ürün
           </p>
@@ -120,7 +119,7 @@ const Products = () => {
         onFilterChange={setCategoryFilter}
         filterOptions={productCategories}
       >
-        {/* children propu olarak Yeni Ürün butonu  */}
+        {/* children propu olarak yeni Ürün butonu  */}
         <button 
           onClick={handleOpenAddModal} 
           className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-amber-600 dark:hover:bg-amber-700 text-white rounded-lg transition-colors"

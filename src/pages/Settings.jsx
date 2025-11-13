@@ -4,7 +4,6 @@ import ProfileSettings from '../components/settings/ProfileSettings';
 import NotificationSettings from '../components/settings/NotificationSettings';
 import { User, Bell } from 'lucide-react';
 
-
 const Settings = () => {
   const { setPageTitle } = useApp();
 
@@ -12,10 +11,9 @@ const Settings = () => {
     setPageTitle('Ayarlar'); 
   }, [setPageTitle]);
   
-  // Aktif sekme durumu
   const [activeTab, setActiveTab] = useState('profile');
 
-  // Sekme tanımları
+  // Sekme tanımları 
   const tabs = [
     { id: 'profile', label: 'Profil Ayarları', icon: User },
     { id: 'notifications', label: 'Bildirim Ayarları', icon: Bell },
@@ -23,9 +21,9 @@ const Settings = () => {
 
   return (
     <div className="space-y-6">
+
       {/* Sayfa başlığı */}
       <div>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Ayarlar</h2>
         <p className="text-sm text-gray-500 dark:text-gray-400">
           Profil ve bildirim tercihlerinizi yönetin
         </p>
@@ -47,7 +45,7 @@ const Settings = () => {
               }`}
             >
               <Icon className="w-5 h-5" />
-              <span>{tab.label}</span>
+              <span>{tab.label}</span> 
             </button>
           );
         })}

@@ -54,12 +54,11 @@ const SalesChart = ({ data, filter }) => {
 
       <ResponsiveContainer width="100%" height={300}>
         <AreaChart
-          //  Filter propu değiştiğinde grafik animasyonu tetiklenir
           key={filter} 
           data={data}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
-          {/* Gradyan Tanımlamaları */}
+          {/* Gradyan */}
           <defs>
             <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor={SALES_COLOR} stopOpacity={0.4} />
@@ -71,7 +70,7 @@ const SalesChart = ({ data, filter }) => {
             </linearGradient>
           </defs>
 
-          {/* Grid çizgileri ve Axis'ler */}
+          {/* Grid çizgileri ve Axisler */}
           <CartesianGrid 
             strokeDasharray="3 3" 
             stroke={theme === 'dark' ? '#3f3f46' : '#e5e7eb'} 
@@ -81,6 +80,7 @@ const SalesChart = ({ data, filter }) => {
             stroke={theme === 'dark' ? '#a1a1aa' : '#3f3f46'} 
             tickLine={false} 
             axisLine={false}
+            
             // Yıllık görünümde X ekseni etiketlerini ayarla
             tickFormatter={(tick) => {
                 if (filter === 'year') {

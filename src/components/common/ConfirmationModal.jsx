@@ -44,6 +44,7 @@ const ConfirmationModal = ({
               {/* Modal panel */}
               <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-800 p-6 text-left align-middle shadow-xl transition-all">
                 <div className="flex items-start gap-4">
+
                   {/* Uyarı ikonu */}
                   <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 dark:bg-red-900/50 sm:mx-0 sm:h-10 sm:w-10">
                     <AlertTriangle className="h-6 w-6 text-red-600 dark:text-red-400" aria-hidden="true" />
@@ -67,15 +68,14 @@ const ConfirmationModal = ({
                 {/* Butonlar */}
                 <div className="mt-6 flex justify-end gap-3">
                   <Button type="button" variant="secondary" onClick={onClose}>
-                    {cancelText}
+                    {cancelText} 
                   </Button>
-                  {/* Onay butonu */}
                   <Button 
                     type="button" 
                     onClick={onConfirm}
                     className="bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 text-white"
                   >
-                    {confirmText}
+                    {confirmText} 
                   </Button>
                 </div>
               </Dialog.Panel>

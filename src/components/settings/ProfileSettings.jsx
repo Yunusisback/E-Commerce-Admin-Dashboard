@@ -3,7 +3,6 @@ import Card from '../common/Card';
 import Button from '../common/Button';
 import { useApp } from '../../context/AppContext'; 
 
-
 const inputStyle = "w-full mt-1 px-4 py-2 bg-white dark:bg-zinc-700 border border-gray-200 dark:border-zinc-600 rounded-lg text-sm text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-amber-500";
 const labelStyle = "text-sm font-medium text-gray-700 dark:text-gray-300";
 
@@ -11,51 +10,44 @@ const labelStyle = "text-sm font-medium text-gray-700 dark:text-gray-300";
 const ProfileSettings = () => {
   const { user, setUser } = useApp();
   
-  // Profil verisi durumu
+  // Profil verisi durumu (avatar dahil)
   const [profile, setProfile] = useState({
     name: user.name,
     email: user.email,
+    avatar: user.avatar || '' 
   });
   
-  // Profil ve parola durumları
   const [profileStatus, setProfileStatus] = useState('idle');
   const [passwordStatus, setPasswordStatus] = useState('idle');
   
-  // Parola formu durumu
   const [password, setPassword] = useState({
     current: '',
     new: '',
     confirm: ''
   });
 
-  // Profil değişikliği işleyicisi
   const handleProfileChange = (e) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
     setProfileStatus('idle'); 
   };
 
-  // Parola değişikliği işleyicisi
   const handlePasswordChange = (e) => {
     setPassword({ ...password, [e.target.name]: e.target.value });
     setPasswordStatus('idle'); 
   };
 
-  // Profil güncelleme işleyicisi
   const handleProfileSubmit = (e) => {
     e.preventDefault();
     setProfileStatus('loading'); 
-    
     setTimeout(() => {
       setUser(profile); 
       setProfileStatus('success'); 
     }, 1000); 
   };
 
-  // Parola değiştirme işleyicisi
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
     setPasswordStatus('loading');
-
     setTimeout(() => {
       setPasswordStatus('success'); 
       setPassword({ current: '', new: '', confirm: '' }); 
@@ -64,7 +56,9 @@ const ProfileSettings = () => {
 
   return (
     <Card>
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Profil Ayarları</h3>
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        Profil Ayarları
+      </h3>
       
       {/* Profil formu */}
       <form onSubmit={handleProfileSubmit} className="space-y-4">
@@ -93,11 +87,23 @@ const ProfileSettings = () => {
           </div>
         </div>
         
+        <div>
+          <label htmlFor="avatar" className={labelStyle}>Avatar URL</label>
+          <input 
+            type="text" 
+            id="avatar" 
+            name="avatar"
+            value={profile.avatar}
+            onChange={handleProfileChange}
+            className={inputStyle} 
+            placeholder="https://..."
+          />
+        </div>
+        
         <div className="text-right flex items-center justify-end gap-4">
           {profileStatus === 'success' && (
             <span className="text-sm text-green-500">Profil Kaydedildi!</span>
           )}
-     
           <Button 
             type="submit" 
             variant="primary" 
@@ -154,7 +160,6 @@ const ProfileSettings = () => {
           {passwordStatus === 'success' && (
             <span className="text-sm text-green-500">Parola Değiştirildi!</span>
           )}
-         
           <Button 
             type="submit" 
             variant="secondary" 

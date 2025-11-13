@@ -6,7 +6,7 @@ const DateFilter = ({ onFilterChange }) => {
   // Aktif filtre durumunu yönetir
   const [activeFilter, setActiveFilter] = useState('30d');
   
-  // Filtre seçenekleri
+  // Filtre seçenekleri 
   const filters = [
     { label: 'Bugün', value: 'today' },
     { label: '7 Gün', value: '7d' },
@@ -32,7 +32,7 @@ const DateFilter = ({ onFilterChange }) => {
               : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-zinc-700 dark:text-gray-300 dark:hover:bg-zinc-600' 
           }`}
         >
-          {filter.label}
+          {filter.label} 
         </button>
       ))}
     </div>

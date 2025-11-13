@@ -31,7 +31,7 @@ const AddProductModal = ({ isOpen, onClose, onSave }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSave(formData);
-    onClose(); // Modalı kapat
+    onClose(); 
   };
 
   return (

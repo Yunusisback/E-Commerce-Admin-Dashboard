@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from 'react';
 
-
 const AppContext = createContext();
 
 export const useApp = () => {
@@ -17,16 +16,27 @@ export const AppProvider = ({ children }) => {
   // Sayfa başlığı durumu
   const [pageTitle, setPageTitle] = useState('Dashboard'); 
   
-  // Kullanıcı bilgisi durumu
+  // Kullanıcı bilgisi durumu (Avatar dahil)
   const [user, setUser] = useState({
-    name: 'Admin User',
-    email: 'admin@ecommerce.com',
+    name: "Thomas",
+    email: 'thomas@gmail.com',
+    avatar: 'https://i.pravatar.cc/150?img=68' // Varsayılan avatar
   });
+
+  // Sidebarın açık/kapalı durumunu yönetir
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  // Sidebar durumunu tersine çeviren fonksiyon
+  const toggleSidebar = () => {
+    setIsSidebarOpen(prev => !prev);
+  };
 
   return (
     <AppContext.Provider value={{ 
       user, setUser, 
-      pageTitle, setPageTitle 
+      pageTitle, setPageTitle,
+      isSidebarOpen, 
+      toggleSidebar 
     }}>
       {children}
     </AppContext.Provider>

@@ -37,7 +37,7 @@ const Analytics = () => {
       setRevenueData([mockData.salesTrend[mockData.salesTrend.length - 1]].map(d => ({ date: d.date, revenue: d.sales })));
     } else if (newFilter === 'year') {
 
-      // Yıllık veri için 'analyticsRevenueData'yı (aylık veriler) kullan
+      // Yıllık veri için analyticsrevenuedatayı (aylık veriler) kullan
       setRevenueData(analyticsRevenueData);
     }
   };

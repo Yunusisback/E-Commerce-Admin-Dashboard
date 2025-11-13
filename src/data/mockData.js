@@ -66,7 +66,7 @@ export const mockData = {
     { id: '#ORD-2401', customer: 'Ahmet Yılmaz', product: 'iPhone 15 Pro', amount: 31000, status: 'Teslim Edildi', date: '10 Eki 2025' },
     { id: '#ORD-2402', customer: 'Ayşe Demir', product: 'Samsung Galaxy S24', amount: 28000, status: 'Kargoda', date: '30 Eki 2025' },
     { id: '#ORD-2403', customer: 'Mehmet Kaya', product: 'AirPods Pro', amount: 7500, status: 'Hazırlanıyor', date: '19 Eki 2025' },
-    { id: '#ORD-2404', customer: 'Fatma Şahin', product: 'MacBook Air M3', amount: 45000, status: 'Teslim Edildi', date: '29 Eki 2025' },
+    { id: '#ORD-2404', customer: 'Fatma Öncü', product: 'MacBook Air M3', amount: 45000, status: 'Teslim Edildi', date: '29 Eki 2025' },
     { id: '#ORD-2405', customer: 'Ali Öztürk', product: 'Apple Watch Series 9', amount: 12000, status: 'Kargoda', date: '18 Eki 2025' },
     { id: '#ORD-2406', customer: 'Zeynep Çelik', product: 'iPad Air', amount: 18500, status: 'Teslim Edildi', date: '18 Eki 2025' },
     { id: '#ORD-2407', customer: 'Can Arslan', product: 'Sony WH-1000XM5', amount: 9800, status: 'Hazırlanıyor', date: '9 Eki 2025' },
@@ -119,6 +119,7 @@ export const allProducts = [
   { id: 13, name: 'Karaca Yemek Takımı', category: 'Ev & Yaşam', price: 2800, stock: 67, sales: 45, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXGZEzJQYFLYedJr3kdYa3QwuXGVxfcQHSQA&s', status: 'active' },
   { id: 14, name: 'PlayStation 5', category: 'Elektronik', price: 18000, stock: 12, sales: 67, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHEFb4Z484ryn9AFyU1CbvyC9wjpGGl25a_w&s', status: 'low-stock' },
   { id: 15, name: 'Sapiens Kitabı', category: 'Kitap', price: 280, stock: 0, sales: 234, image: 'https://www.ekinkitap.com/u/ekinyayinevi/img/b/h/a/hayvanlardan-tanrilara-sapiens3130a450a888674275660ddeb5ac722f.png', status: 'out-of-stock' },
+  { id: 16, name: 'LG Oled Televizyon', category: 'Elektronik', price: 43980, stock: 0, sales: 234, image: 'https://productimages.hepsiburada.net/s/777/375-375/110001045073868.jpg', status: 'out-of-stock' },
 ];
 
 // Ürün kategorileri
@@ -146,7 +147,7 @@ export const allCustomers = [
   { id: 'CUST-003', name: 'Mehmet Kaya', email: 'mehmet@email.com', phone: '0555 345 6789', totalSpent: 23000, orderCount: 8, status: 'active', avatar: 'https://i.pravatar.cc/150?img=17' },
   { id: 'CUST-004', name: 'Elif Demir', email: 'elif@email.com', phone: '0555 456 7890', totalSpent: 5100, orderCount: 2, status: 'inactive', avatar: 'https://i.pravatar.cc/150?img=19' },
   { id: 'CUST-005', name: 'Ali Öztürk', email: 'ali@email.com', phone: '0555 567 8901', totalSpent: 3000, orderCount: 5, status: 'banned', avatar: 'https://i.pravatar.cc/150?img=56' },
-  { id: 'CUST-006', name: 'Fatma Şahin', email: 'fatma@email.com', phone: '0555 678 9012', totalSpent: 18750, orderCount: 6, status: 'active', avatar: 'https://i.pravatar.cc/150?img=21' },
+  { id: 'CUST-006', name: 'Fatma Öncü', email: 'fatma@email.com', phone: '0555 678 9012', totalSpent: 18750, orderCount: 6, status: 'active', avatar: 'https://i.pravatar.cc/150?img=21' },
   { id: 'CUST-007', name: 'Hasan Çelik', email: 'hasan@email.com', phone: '0555 789 0123', totalSpent: 4200, orderCount: 2, status: 'inactive', avatar: 'https://i.pravatar.cc/150?img=54' },
   { id: 'CUST-008', name: 'Zeynep Arslan', email: 'zeynep@email.com', phone: '0555 890 1234', totalSpent: 31500, orderCount: 10, status: 'active', avatar: 'https://i.pravatar.cc/150?img=15' },
   { id: 'CUST-009', name: 'Emre Polat', email: 'emre@email.com', phone: '0555 901 2345', totalSpent: 9800, orderCount: 4, status: 'active', avatar: 'https://i.pravatar.cc/300' },

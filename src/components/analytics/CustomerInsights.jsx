@@ -24,7 +24,7 @@ const CustomerInsights = ({ data }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         
-        {/* Sol Taraf: KPI Metrikleri  */}
+        {/* Sol Taraf */}
         <div className="space-y-4">
           <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-zinc-700 rounded-lg">
             <UserCheck className="w-6 h-6 text-blue-600 dark:text-amber-400" />
@@ -55,7 +55,7 @@ const CustomerInsights = ({ data }) => {
           </div>
         </div>
 
-        {/* Sağ Taraf: Yeni vs Mevcut Müşteri Grafiği */}
+        {/* Sağ Taraf */}
         <div>
           <h4 className="text-md font-medium text-gray-900 dark:text-white mb-2 text-center">
             Yeni vs. Mevcut Müşteri

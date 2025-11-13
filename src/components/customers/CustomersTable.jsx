@@ -61,6 +61,7 @@ const CustomersTable = ({
                     {isHidden ? '**' : formatNumber(customer.orderCount)}
                   </td>
                   <td className="py-4 px-4">
+                    
                     {/*getStatusColor fonksiyonunu kullanıyor */}
                     <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${getStatusColor(customer.status)}`}>
                       {customer.status === 'active' ? 'Aktif' : customer.status === 'inactive' ? 'Pasif' : 'Yasaklı'}
