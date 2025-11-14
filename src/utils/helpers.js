@@ -29,7 +29,7 @@ export const formatDate = (dateString) => {
   }).format(date);
 };
 
-// Durum rengi 
+// Durum rengi - Sipariş durumuna göre 
 export const getStatusColor = (status) => {
   switch (status) {
 
@@ -46,15 +46,19 @@ export const getStatusColor = (status) => {
     case 'Kargoda':
       return 'bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-400 border border-violet-200 dark:border-violet-500/30';
 
-    // Negatif durum (Müşteri & Sipariş)
+
+    case 'İade':
+    return 'bg-gray-200 text-gray-700 dark:bg-gray-700/30 dark:text-gray-300 border border-gray-300 dark:border-gray-600/40';
+
+
+    // Negatif durum
     case 'İptal':
     case 'banned':
       return 'bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-400 border border-rose-200 dark:border-rose-500/30';
     
-    // Pasif durum (Müşteri & Diğer)
+    // Pasif durum 
     case 'Pasif':
     case 'inactive':
-    case 'İade': 
     default:
       return 'bg-gray-100 text-gray-700 dark:bg-zinc-700 dark:text-gray-300 border border-gray-200 dark:border-zinc-600';
   }
