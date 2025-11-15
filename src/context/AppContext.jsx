@@ -18,8 +18,8 @@ export const AppProvider = ({ children }) => {
   
   // Kullanıcı bilgisi durumu (Avatar dahil)
   const [user, setUser] = useState({
-    name: "Thomas",
-    email: 'thomas@gmail.com',
+    name: "Ahmet",
+    email: 'Ahmet@gmail.com',
     avatar: 'https://i.pravatar.cc/150?img=68' // Varsayılan avatar
   });
 
