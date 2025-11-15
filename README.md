@@ -32,6 +32,7 @@ Modern UI/UX: Beautiful, accessible, and fully responsive interface built with T
 Extensively Tested: High unit and integration test coverage using Vitest and React Testing Library. ✅
 
 
+
 🛠️ Tech Stack
 
 Framework: React 19
