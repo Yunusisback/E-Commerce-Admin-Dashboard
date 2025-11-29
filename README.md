@@ -13,6 +13,7 @@ Here are some screenshots of the project!
 ![e-com-ord](https://github.com/user-attachments/assets/09f5e729-234d-48c7-bc9c-4b5b7d0a02f5)
 
 
+
 ✨ Features
 
 Dynamic Dashboard: Key performance indicators (KPIs), interactive sales charts, and a real-time latest orders list. 📊
